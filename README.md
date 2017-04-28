@@ -3,14 +3,14 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 ## Prepare the unix terminal on client side (your laptop/desktop)
 ### for windows 7 users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
-- run babun and you are at the terminal
+- run babun and you are at the terminal, you can pin it to the taskbar for convenience.
+-- Tip: mouse select to copy, mouse right click to paste
 ```
 babun update
 babun shell /bin/bash
 ln -s $HOMEPATH/Downloads .
 cd Downloads
 ls #to list your folders and files
-#Tip: mouse select to copy, mouse right click to paste
 ```
 ### for Mac OS X users
 - run terminal
@@ -22,8 +22,7 @@ ls #to list your folders and files
 ```
 ### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, click the link to your project
-- In the address bar of your browser, delete the string between the first slash and 'dirName=', then copy the resulting URL. You will get something like 
-'http://futo.cs.yale.edu:16023//ysm-gpfs/.../Project_Gale_ChMo_D_pool1'
+- In the address bar of your browser, delete the string between the first slash and 'dirName=', then copy the resulting URL. You will get something like 'http://futo.cs.yale.edu:16023//ysm-gpfs/.../Project_Gale_ChMo_D_pool1'
 ```
 cd Downloads
 wget -e robots=off -r --accept *.fastq {paste here}
