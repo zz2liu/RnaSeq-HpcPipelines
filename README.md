@@ -24,17 +24,23 @@ ls #to list your folders and files
 - follow the download link provided in their email, click the link to your project
 - In the address bar of your browser, delete the string between the first slash and 'dirName=', then copy the resulting URL. You will get something like 
 `http://futo.cs.yale.edu:16023//ysm-gpfs/.../Project_Gale_ChMo_D_pool1`
-- run your terminal (babun on windows or terminal on Mac Os X)
 ```
 cd Downloads
 wget -e robots=off -r --accept *.fastq {paste your url here}
 ```
 ### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
 - ask for an external link, and copy the link address
-- run your terminal (babun on windows or terminal on Mac Os X)
 ```
 cd Downloads
 wget -e robots=off -r --accept *.fastq.gz {paste your url here}
+```
+- Alternatively, if you have an account on ruddle
+-- follow the link to your project
+-- In the address bar, copy the ending string after 'gpfs_illumina' and you will get something like 
+`/sequencerS/runs/170329_D00596R_0187_ACAVNYANXX/Data/Intensities/BaseCalls/Unaligned/Project_Aea44`
+
+```
+rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 ```
 ### basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
