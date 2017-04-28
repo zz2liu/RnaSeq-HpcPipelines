@@ -44,6 +44,9 @@ rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 ```
 ### basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
+### Request a new account on HPC clusters
+- Go to yale center for research computing
+- on the form check ruddle and farnam
 
 ## Fastq to Gene Count pipelines
 ### Bowtie2 local single-end pipeline
