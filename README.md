@@ -44,7 +44,8 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 ```
 ### basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-- run the run_fastqc.bat after downloaded and extracted.
+- run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
+- You can find tutorial and examples on the website.
 
 ### Request a new account on HPC clusters
 - Go to yale center for research computing
