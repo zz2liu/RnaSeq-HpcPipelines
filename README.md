@@ -2,7 +2,7 @@
 RNA-Seq Pipelines live on Yale HPC clusters.
 ## Prepare the unix terminal on client side (your laptop/desktop)
 ### for windows 7 users
-- download and install [babun](http://babun.github.io/)
+- download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun and you are at the terminal
 ```
 babun update
@@ -43,6 +43,7 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 ```
 ### basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- run the run_fastqc.bat after downloaded and extracted.
 
 ### Request a new account on HPC clusters
 - Go to yale center for research computing
