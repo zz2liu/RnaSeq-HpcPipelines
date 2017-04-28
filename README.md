@@ -4,7 +4,9 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 ### for windows 7 users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun and you are at the terminal, you can pin it to the taskbar for convenience.
+
 -- Tip: mouse select to copy, mouse right click to paste
+
 ```
 babun update
 babun shell /bin/bash
