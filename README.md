@@ -2,19 +2,14 @@
 RNA-Seq Pipelines live on Yale HPC clusters.
 ## Request an account on a yale HPC cluster, and get preprared
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
-- On the account request page, check farnam and ruddle (if you have data from YCGA).
-- After you get your account, log into your account with ssh, example `ssh {your netid}@farnam.hpc.yale.edu`
+  - On the account request page, check farnam and ruddle (if you have data from YCGA).
+  - You might want to excercise your unix command line while waiting for your account, and you can find two tutorials at the end of the [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started).
+- After you get your account, log into your account with ssh, example `ssh {your netid}@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
   - Note that all files saved on your scratch folder, which be deleted after 60 days, after an email notification from ITS.
-- get prepared for pipelines on farnam.  
-```
-```
-- get prepared for pipelines on ruddle.
-```
-```
 
 ## Prepare the unix terminal on client side (your laptop/desktop)
-### for windows 7 users
+### for Windows users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
   - Babun Tip: mouse select to copy, mouse right click to paste
@@ -33,55 +28,41 @@ brew install wget
 cd Downloads
 ls #to list your folders and files
 ```
-### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
-- follow the download link provided in their email, click the link to your project
-- In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
-'/ysm-gpfs/.../Project_Ae4'
-```
-cd Downloads
-wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here}
-```
-- You can then find your data in a new 'futo.cs.yale.edu:16023' folder under your Download folder.
-- Alternatively, if you have an account on farnam
-  - follow the link to your project
-  - In the address bar, copy the ending string after 'dirName=' and you will get something like 
-'/ysm-gpfs/.../Project_Ae4'
-```
-cd Downloads
-rsync -azvu {yourNetId}@farnam.hpc.yale.edu:/{paste here} .
-```
 
 ### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
-- ask for an external link, and copy the link address
+
+- Follow the download link provided in their email, click the link to your project.
+- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
+'sequencerS/.../Project_Ae44'
 ```
 cd Downloads
-wget -e robots=off -r --accept *.fastq.gz {paste here}
+seqDir=/sequencers/illumina/{paste here}
+rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$seqDir
 ```
-- You can then find your data in a new 'sysg1.cs.yale.edu:3010' folder under your Download folder.
-- Alternatively, if you have an account on ruddle
-  - follow the link to your project
-  - In the address bar, copy the ending string after 'gpfs_illumina' and you will get something like 
-'/sequencerS/runs/.../Unaligned/Project_Aea44'
-```
-cd Downloads
-rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
-```
+- Alternatively, if you do not have an account on ruddle
+  - ask for an external link, copy the link address, then
+  ```
+  cd Downloads
+  wget -e robots=off -r --accept *.fastq.gz {paste here}
+  ```
 ### Basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
 - You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 
 ## Fastq to Gene Count pipelines on a HPC cluster
 - log on to a cluster (ruddle or farnam). 
-- locate your sequence files as described in the 'bulk download' section. See also [descriptions on individual clusters](http://research.computing.yale.edu/support/hpc/clusters). Examples on ruddle,
+- locate your sequence files as described in the 'bulk download' section.
 ```
+seqDir={paste your seqDir here)
 mkdir rawData
-ln -s /sequencers/illumina/sequencerS/runs/170329_D00596R_0187_ACAVNYANXX/Data/Intensities/BaseCalls/Unaligned/Project_Aea44 rawData
+ln -s $seqDir rawData
 ```
 ### Bowtie2 local single-end pipeline
 - Example usage for batch mode (Project level)
 ```
+projectDir=~/rawData/Project_Aea44
 cd scratch60
-bowtie2localSeBatch hg38 ~/rawData/Project_Aea44
+bowtie2localSeBatch hg38 $projectDir
 ```
 - Arguments:
   * genome: one of {hg38, hg19, mm10, mm9}
@@ -96,7 +77,8 @@ bowtie2localSeBatch hg38 ~/rawData/Project_Aea44
 
 ## Differential Gene Expression pipelines
 ### DESeq2 pipeline
-- deseq2.vst < geneCount.csv > geneVst.csv
+- deseq2.vst
+  - Usage example: `deseq2.vst < geneCount.csv > geneVst.csv`
 ### VoomLimma pipeline
 ### unix tips:
 - essential command
@@ -112,4 +94,20 @@ bowtie2localSeBatch hg38 ~/rawData/Project_Aea44
   - >: redirect the stdout (the screen output) to a file
   - <: redirect content of a file to stdin (the keyboard input)
   - |: pipe the stdout of the left program to stdin of the right program.
+  
+### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
+- After you have an account on farnam
+  - follow the download link provided in their email, click the link to your project.
+  - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
+'/ysm-gpfs/.../Project_Ae4'
+```
+cd Downloads
+rsync -azvu {yourNetId}@farnam.hpc.yale.edu:/{paste here} .
+```
+- Alternatively, if you do not have a farnam account:
+```
+cd Downloads
+wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here}
+```
+
   
