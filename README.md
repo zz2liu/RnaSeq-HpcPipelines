@@ -17,16 +17,12 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 babun update
 babun shell /bin/bash
 ln -s $HOMEPATH/Downloads .
-cd Downloads
-ls #to list your folders and files
 ```
 ### for Mac OS X users
 - run terminal
 ```
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install wget
-cd Downloads
-ls #to list your folders and files
 ```
 
 ### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
@@ -39,15 +35,18 @@ cd Downloads
 projectDir=/sequencers/illumina/{paste here}
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 ```
-- Alternatively, if you do not have an account on ruddle
-  - ask for an external link, copy the link address, then
-  ```
-  cd Downloads
-  wget -e robots=off -r --accept *.fastq.gz {paste here}
-  ```
+- Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
+```
+cd Downloads
+wget -e robots=off -r --accept *.fastq.gz {paste here}
+```
+
 ### Basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
+  - Menu - file to open one of a ...R1_???.fasta.gz file.
+  - Menu - file to save report.
 - You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+- *Mac: you might want to allow the software by [System preferences - security - open anyway].
 
 ## Fastq to Gene Count pipelines on a HPC cluster
 - log on to a cluster (ruddle or farnam). 
@@ -86,7 +85,7 @@ bowtie2localSeBatch hg38 $projectDir
   - cat, less, nano, echo
   - rsync, wget
 - concepts and operators:
-  - $, |, >, >> 
+  - ${}, |, >, >>, *, ?
   
 ### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, click the link to your project.
