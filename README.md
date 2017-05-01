@@ -36,8 +36,8 @@ ls #to list your folders and files
 'sequencerS/.../Project_Ae44'
 ```
 cd Downloads
-seqDir=/sequencers/illumina/{paste here}
-rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$seqDir
+projectDir=/sequencers/illumina/{paste here}
+rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 ```
 - Alternatively, if you do not have an account on ruddle
   - ask for an external link, copy the link address, then
@@ -53,14 +53,14 @@ rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$seqDir
 - log on to a cluster (ruddle or farnam). 
 - locate your sequence files as described in the 'bulk download' section.
 ```
-seqDir={paste your seqDir here)
+projectDir={paste your seqDir here)
 mkdir rawData
-ln -s $seqDir rawData
+ln -s $projectDir rawData
 ```
 ### Bowtie2 local single-end pipeline
 - Example usage for batch mode (Project level)
 ```
-projectDir=~/rawData/Project_Aea44
+#projectDir=~/rawData/Project_Aea44
 cd scratch60
 bowtie2localSeBatch hg38 $projectDir
 ```
@@ -82,27 +82,20 @@ bowtie2localSeBatch hg38 $projectDir
 ### VoomLimma pipeline
 ### unix tips:
 - essential command
-  - ls
-  - cd
-  - mkdir
-  - cp
-  - mv
-  - ln -s: create a soft link to source.
-  - less
-- concepts:
-  - $HOME or ~: your home directory/folder
-  - >: redirect the stdout (the screen output) to a file
-  - <: redirect content of a file to stdin (the keyboard input)
-  - |: pipe the stdout of the left program to stdin of the right program.
+  - ls, cd, mkdir, rmdir, cp, mv, ln, rm
+  - cat, less, nano, echo
+  - rsync, wget
+- concepts and operators:
+  - $, |, >, >> 
   
 ### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
-- After you have an account on farnam
-  - follow the download link provided in their email, click the link to your project.
-  - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
+- follow the download link provided in their email, click the link to your project.
+- In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
 ```
+projectDir={paste here}
 cd Downloads
-rsync -azvu {yourNetId}@farnam.hpc.yale.edu:/{paste here} .
+rsync -azvu {yourNetId}@farnam.hpc.yale.edu:$projectDir .
 ```
 - Alternatively, if you do not have a farnam account:
 ```
