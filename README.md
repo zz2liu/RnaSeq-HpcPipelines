@@ -3,7 +3,8 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 ## Request an account on a yale HPC cluster, and get preprared
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
 - On the account request page, check farnam and ruddle (if you have data from YCGA).
-- log into your account with ssh, example `ssh {your netid}@farnam.hpc.yale.edu`
+- After you get your account, log into your account with ssh, example `ssh {your netid}@farnam.hpc.yale.edu`
+  - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
   - Note that all files saved on your scratch folder, which be deleted after 60 days, after an email notification from ITS.
 - get prepared for pipelines on farnam.  
 ```
