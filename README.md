@@ -74,7 +74,7 @@ rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 - log on to a cluster (ruddle or farnam). 
 - locate your sequence files as described in the 'bulk download' section. See also [descriptions on individual clusters](http://research.computing.yale.edu/support/hpc/clusters). Examples on ruddle,
 ```
-mkDir rawData
+mkdir rawData
 ln -s /sequencers/illumina/sequencerS/runs/170329_D00596R_0187_ACAVNYANXX/Data/Intensities/BaseCalls/Unaligned/Project_Aea44 rawData
 ```
 ### Bowtie2 local single-end pipeline
@@ -96,4 +96,20 @@ bowtie2localSeBatch hg38 ~/rawData/Project_Aea44
 
 ## Differential Gene Expression pipelines
 ### DESeq2 pipeline
+- deseq2.vst < geneCount.csv > geneVst.csv
 ### VoomLimma pipeline
+### unix tips:
+- essential command
+  - ls
+  - cd
+  - mkdir
+  - cp
+  - mv
+  - ln -s: create a soft link to source.
+  - less
+- concepts:
+  - $HOME or ~: your home directory/folder
+  - >: redirect the stdout (the screen output) to a file
+  - <: redirect content of a file to stdin (the keyboard input)
+  - |: pipe the stdout of the left program to stdin of the right program.
+  
