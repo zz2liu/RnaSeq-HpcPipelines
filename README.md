@@ -1,6 +1,6 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC clusters.
-## Request an account on a yale HPC cluster, and get preprared
+## 1. Request an account on a yale HPC cluster, and get preprared
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
   - On the account request page, check farnam and ruddle (if you have data from YCGA).
   - You might want to excercise your unix command line while waiting for your account, and you can find two tutorials at the end of the [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started).
@@ -8,7 +8,7 @@ RNA-Seq Pipelines live on Yale HPC clusters.
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
   - Note that all files saved on your scratch folder, which be deleted after 60 days, after an email notification from ITS.
 
-## Prepare the unix terminal on client side (your laptop/desktop)
+## 2. Prepare the unix terminal on client side (your laptop/desktop)
 ### for Windows users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
@@ -25,7 +25,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install wget
 ```
 
-## Use the unix terminal on client side
+## 3. Use the unix terminal on client side
 ### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
 
 - Follow the download link provided in their email, click the link to your project.
@@ -49,7 +49,7 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 - You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 - *Mac: you might want to allow the software by [System preferences - security - open anyway].
 
-## Fastq to Gene Count pipelines on a HPC cluster
+## 4. Fastq to Gene Count pipelines on a HPC cluster
 - log on to a cluster (ruddle or farnam). 
 - locate your sequence files as described in the 'bulk download' section.
 ```
@@ -57,7 +57,7 @@ projectDir={paste your seqDir here)
 mkdir rawData
 ln -s $projectDir rawData
 ```
-### Bowtie2 local single-end pipeline
+### 4.1 Bowtie2 local single-end pipeline
 - Example usage for batch mode (Project level)
 ```
 #projectDir=~/rawData/Project_Aea44
