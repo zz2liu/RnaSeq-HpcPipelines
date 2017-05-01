@@ -25,6 +25,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install wget
 ```
 
+## Use the unix terminal on client side
 ### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
 
 - Follow the download link provided in their email, click the link to your project.
