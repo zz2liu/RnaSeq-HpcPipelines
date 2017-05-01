@@ -8,8 +8,6 @@ RNA-Seq Pipelines live on Yale HPC clusters.
   - Note that all files saved on your scratch folder, which be deleted after 60 days, after an email notification from ITS.
 - get prepared for pipelines on farnam.  
 ```
-ln -s /ysm-gpfs/scratch60/$USER scratch
-ls -l
 ```
 - get prepared for pipelines on ruddle.
 ```
@@ -76,9 +74,23 @@ rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:/sequencers/illumina/{paste here}
 - log on to a cluster (ruddle or farnam). 
 - locate your sequence files as described in the 'bulk download' section. See also [descriptions on individual clusters](http://research.computing.yale.edu/support/hpc/clusters). Examples on ruddle,
 ```
-ls -s 
+mkDir rawData
+ln -s /sequencers/illumina/sequencerS/runs/170329_D00596R_0187_ACAVNYANXX/Data/Intensities/BaseCalls/Unaligned/Project_Aea44 rawData
 ```
 ### Bowtie2 local single-end pipeline
+- Example usage for batch mode (Project level)
+```
+cd scratch60
+bowtie2localSeBatch hg38 ~/rawData/Project_Aea44
+```
+- Arguments:
+  * genome: one of {hg38, hg19, mm10, mm9}
+  * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
+- Output:
+  * create a new folder with the name {yourProject}.{genome} into your current folder.
+  * write the count matrix of [gene x sample], RPKM matrix
+  * write into each sample folder: BAM file, bigwig file, etc
+  
 ### STAR + transcriptome pipeline
 ### Tophat2 + transcriptome pipeline
 
