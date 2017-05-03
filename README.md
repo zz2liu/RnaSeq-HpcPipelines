@@ -58,19 +58,21 @@ mkdir rawData
 ln -s $projectDir rawData
 ```
 ### 4.1 Bowtie2 local single-end pipeline
-- Example usage for batch mode (Project level)
+- Example usage for batch mode (Project level) on ruddle
 ```
+qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g
 #projectDir=~/rawData/Project_Aea44
 cd scratch60
+mkdir Project_Aea44.hg38
+cd Project_Aea44.hg38
 bowtie2localSeBatch hg38 $projectDir
 ```
 - Arguments:
   * genome: one of {hg38, hg19, mm10, mm9}
   * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
 - Output:
-  * create a new folder with the name {yourProject}.{genome} into your current folder.
   * write the count matrix of [gene x sample], RPKM matrix
-  * write into each sample folder: BAM file, bigwig file, etc
+  * create sample folders, each with: BAM file, bigwig file, etc
   
 ### STAR + transcriptome pipeline
 ### Tophat2 + transcriptome pipeline
