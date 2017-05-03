@@ -51,13 +51,14 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 - *Mac: you might want to allow the software by [System preferences - security - open anyway].
 
 ## 4. Fastq to Gene Count pipelines on a HPC cluster
-- log on to a cluster (ruddle or farnam), then use tmux for later access, [read here for more about tmux](https://gist.github.com/MohamedAlaa/2961058).
+- log on to a cluster (ruddle or farnam), example `ssh zl99@ruddle.hpc.yale.edu`
+- then use tmux for later access, [read here for more about tmux](https://gist.github.com/MohamedAlaa/2961058).
 ```
 tmux a || tmux
 ```
 - locate your sequence files as described in the 'bulk download' section.
 ```
-projectDir={paste your seqDir here)
+projectDir={paste your seqDir here}
 mkdir rawData
 ln -s $projectDir rawData
 ```
@@ -84,13 +85,16 @@ bowtie2localSeBatch.sh hg38 $projectDir
   * create sample folders, each with: BAM file, bigwig file, etc
   
 ### STAR + transcriptome pipeline
+TBD.
 ### Tophat2 + transcriptome pipeline
-
+TBD.
 ## Differential Gene Expression pipelines
 ### DESeq2 pipeline
 - deseq2.vst
   - Usage example: `deseq2.vst < geneCount.csv > geneVst.csv`
 ### VoomLimma pipeline
+TBD.
+
 ### unix tips:
 - essential command
   - ls, cd, mkdir, rmdir, cp, mv, ln, rm
