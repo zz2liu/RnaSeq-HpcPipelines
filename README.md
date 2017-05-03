@@ -18,6 +18,7 @@ babun update
 babun shell /bin/bash
 ln -s $HOMEPATH/Downloads .
 ```
+- windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 ### for Mac OS X users
 - run terminal
 ```
@@ -65,7 +66,10 @@ qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g
 cd scratch60
 mkdir Project_Aea44.hg38
 cd Project_Aea44.hg38
-bowtie2localSeBatch hg38 $projectDir
+
+zl99=/ycga-ba/home/zl99
+export PATH=$zl99/code/ngs/pipelines:$PATH
+bowtie2localSeBatch.sh hg38 $projectDir
 ```
 - Arguments:
   * genome: one of {hg38, hg19, mm10, mm9}
