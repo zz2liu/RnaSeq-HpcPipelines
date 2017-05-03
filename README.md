@@ -51,7 +51,10 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 - *Mac: you might want to allow the software by [System preferences - security - open anyway].
 
 ## 4. Fastq to Gene Count pipelines on a HPC cluster
-- log on to a cluster (ruddle or farnam). 
+- log on to a cluster (ruddle or farnam), then use tmux for later access, [read here for more about tmux](https://gist.github.com/MohamedAlaa/2961058).
+```
+tmux a || tmux
+```
 - locate your sequence files as described in the 'bulk download' section.
 ```
 projectDir={paste your seqDir here)
