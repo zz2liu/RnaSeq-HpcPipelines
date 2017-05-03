@@ -59,16 +59,18 @@ mkdir rawData
 ln -s $projectDir rawData
 ```
 ### 4.1 Bowtie2 local single-end pipeline
+- get into a computing node with 8 CPUs and 32Gb Memory:
+`qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g`
 - Example usage for batch mode (Project level) on ruddle
 ```
-qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g
-#projectDir=~/rawData/Project_Aea44
-cd scratch60
-mkdir Project_Aea44.hg38
-cd Project_Aea44.hg38
+export PATH=/ycga-ba/home/zl99/code/ngs/pipelines:$PATH
 
-zl99=/ycga-ba/home/zl99
-export PATH=$zl99/code/ngs/pipelines:$PATH
+#make a new work space/directory
+cd scratch60
+mkdir bowtie2.hg38
+cd bowtie2.hg38
+
+projectDir=~/rawData/Project_Aea44 #point to your project folder
 bowtie2localSeBatch.sh hg38 $projectDir
 ```
 - Arguments:
