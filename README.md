@@ -1,5 +1,5 @@
 # RnaSeq-HpcPipelines
-RNA-Seq Pipelines live on Yale HPC clusters.
+RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Request an account on a yale HPC cluster, and get preprared
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
   - On the account request page, check farnam and ruddle (if you have data from YCGA).
@@ -19,7 +19,9 @@ RNA-Seq Pipelines live on Yale HPC clusters.
     ln -s $HOMEPATH/Downloads .
     ```
   - Babun Tip: mouse select to copy, mouse right click to paste
+
 - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
+
 ### for Mac OS X users
 - run terminal
     ```sh
@@ -41,7 +43,7 @@ tmux
 ```
 - locate your sequence project folder as described in the 'FAQs:bulk download' section.
 <pre>
-projectDir=<ins>{paste here}</ins>
+projectDir=<ins>__paste here__</ins>
 mkdir rawData
 ln -s $projectDir rawData
 </pre>
@@ -97,7 +99,7 @@ rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
 ```sh
 cd Downloads
-wget -e robots=off -r --accept *.fastq.gz {paste here}
+wget -e robots=off -r --accept *.fastq.gz __paste here__
 ```
 
 ### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
@@ -105,14 +107,14 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
 ```sh
-projectDir={paste here}
+projectDir=__paste here__
 cd Downloads
 rsync -azvu {yourNetId}@farnam.hpc.yale.edu:$projectDir .
 ```
 - Alternatively, if you do not have a farnam account:
 ```sh
 cd Downloads
-wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here}
+wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/__paste here__
 ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
