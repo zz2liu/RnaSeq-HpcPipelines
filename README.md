@@ -131,6 +131,8 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
   - ${}, |, >, >>, *, ?
 
 ### What are the first tmux commands should I learn?
+- Why whould i use tmux?
+[See an appetite here](https://www.ocf.berkeley.edu/~ckuehl/tmux/).
 - one time set up to start tmux, then run `tmux` to start it.
 ```
 echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
@@ -138,15 +140,16 @@ echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
 echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
 ```
 - once in tmux, type ctrl-b then
-  - ? to see a shortcut list
-  - d/D to detach
+  - ?  to see a shortcut list
+  - d/D  to detach and leave everything running in the background
   
-  - c to create a new window
-  - , to rename a window
-  - n/l/number to select next/last/specific window; mouse can be used.
+  - c  to create a new window
+  - n/l/number  to select next/last/specific window; mouse can be used.
   
-  - "/% to create a new pane horizontally/vertically.
-  - x to kill a pane; `exit` command is preferred if possible.
-  - o/;/q+number to select next/last/specific pane; mouse can be used.
-  - z/ctrl+arrows to maximize/resize a pane; mouse can be used.
+  - "/%  to create a new pane horizontally/vertically.
+  - o/;/q+number  to select next/last/specific pane; mouse can be used.
+  - z/ctrl+arrows  to maximize/resize a pane; mouse can be used.
+  
+  - x  to kill a pane; `exit` command is preferred if possible.
+  - ,  to rename a window
   
