@@ -14,7 +14,7 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
   - Babun Tip: mouse select to copy, mouse right click to paste
-```
+```bash
 babun update
 babun shell /bin/bash
 ln -s $HOMEPATH/Downloads .
@@ -51,7 +51,7 @@ ln -s $projectDir rawData
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g`
 - Example usage for batch mode (Project level) on ruddle
-```
+```bash
 #make a new work space/directory
 cd scratch60
 mkdir bowtie2.hg38
@@ -89,13 +89,13 @@ Use rsync.
 - Follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
 'sequencerS/.../Project_Ae44'
-```
+```bash
 cd Downloads
 projectDir=/sequencers/illumina/{paste here}
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
-```
+```bash
 cd Downloads
 wget -e robots=off -r --accept *.fastq.gz {paste here}
 ```
@@ -141,18 +141,15 @@ echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
 ```
 - once in tmux, type ctrl-b then
 
-
-|----|-----|
+|key  |to do|
+|----:|-----|
 |?              |to see a shortcut list|
 |d/D            |to detach and leave everything running in the background|
-
 |c              |to create a new window|
-|n/l/number     |to select next/last/specific window; mouse can be used.|
-
+|n/l/number     |to select next/last/specific window; __mouse can be used__.|
 |"/%            |to create a new pane horizontally/vertically.|
-|o/;/q+number   |to select next/last/specific pane; mouse can be used.|
-|z/ctrl+arrows  |to maximize/resize a pane; mouse can be used.|
-
+|o/;/q+number   |to select next/last/specific pane; __mouse can be used__.|
+|z/ctrl+arrows  |to maximize/resize a pane; __mouse can be used__.|
 |x              |to kill a pane; exit linux command is preferred if possible.|
 |,              |to rename a window|
 
