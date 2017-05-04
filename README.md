@@ -3,10 +3,11 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 ## 1. Request an account on a yale HPC cluster, and get preprared
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
   - On the account request page, check farnam and ruddle (if you have data from YCGA).
-  - You might want to excercise your unix command line while waiting for your account, and you can find two tutorials at the end of the [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started).
+  - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
+    - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
+    - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 - After you get your account, log into your account with ssh, example `ssh {your netid}@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
-  - Note that all files saved on your scratch folder, which be deleted after 60 days, after an email notification from ITS.
 
 ## 2. Prepare the unix terminal on client side (your laptop/desktop)
 ### for Windows users
@@ -26,49 +27,31 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 brew install wget
 ```
 
-## 3. Use the unix terminal on client side
-### Bulk download you sequence files (fastq.gz) from west campus (on ruddle)
-
-- Follow the download link provided in their email, click the link to your project.
-- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
-'sequencerS/.../Project_Ae44'
+## 3. Fastq to Gene Count pipelines on a HPC cluster
+- One time setup after log on to your cluster account.
 ```
-cd Downloads
-projectDir=/sequencers/illumina/{paste here}
-rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
+echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
+echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
+. bashrc
+echo 'set -g mouse on' >>~/.tmux.conf'
 ```
-- Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
+- Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
 ```
-cd Downloads
-wget -e robots=off -r --accept *.fastq.gz {paste here}
+tmux
 ```
-
-### Basic QA with [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
-- run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
-  - Menu - file to open one of a ...R1_???.fasta.gz file.
-  - Menu - file to save report.
-- You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
-- *Mac: you might want to allow the software by [System preferences - security - open anyway].
-
-## 4. Fastq to Gene Count pipelines on a HPC cluster
-- log on to a cluster (ruddle or farnam), example `ssh zl99@ruddle.hpc.yale.edu`
-- then use tmux for later access, [read here for more about tmux](https://gist.github.com/MohamedAlaa/2961058).
+- locate your sequence project folder as described in the 'FAQs:bulk download' section.
 ```
-tmux a || tmux
-```
-- locate your sequence files as described in the 'bulk download' section.
-```
-projectDir={paste your seqDir here}
+projectDir={paste here}
 mkdir rawData
 ln -s $projectDir rawData
 ```
-### 4.1 Bowtie2 local single-end pipeline
+- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS.
+
+### 3.1 Bowtie2 local single-end pipeline
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g`
 - Example usage for batch mode (Project level) on ruddle
 ```
-export PATH=/ycga-ba/home/zl99/code/ngs/pipelines:$PATH
-
 #make a new work space/directory
 cd scratch60
 mkdir bowtie2.hg38
@@ -84,26 +67,40 @@ bowtie2localSeBatch.sh hg38 $projectDir
   * write the count matrix of [gene x sample], RPKM matrix
   * create sample folders, each with: BAM file, bigwig file, etc
   
-### STAR + transcriptome pipeline
-TBD.
-### Tophat2 + transcriptome pipeline
-TBD.
-## Differential Gene Expression pipelines
-### DESeq2 pipeline
-- deseq2.vst
-  - Usage example: `deseq2.vst < geneCount.csv > geneVst.csv`
-### VoomLimma pipeline
+### 3.2 STAR + transcriptome pipeline
 TBD.
 
-### unix tips:
-- essential command
-  - ls, cd, mkdir, rmdir, cp, mv, ln, rm
-  - cat, less, nano, echo
-  - rsync, wget
-- concepts and operators:
-  - ${}, |, >, >>, *, ?
-  
-### Bulk download your sequence files (fastq) from Yale Stem Cell Center (on farnam)
+### 3.3 Tophat2 + transcriptome pipeline
+TBD.
+
+## 4. Differential Gene Expression pipelines
+### 4.1 DESeq2 pipeline
+- deseq2.vst
+  - Usage example: `deseq2.vst < geneCount.csv > geneVst.csv`
+### 4.2 VoomLimma pipeline
+TBD.
+
+
+## FAQs
+### How to download from/upload to the cluster?
+Use rsync.
+
+### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
+- Follow the download link provided in their email, click the link to your project.
+- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
+'sequencerS/.../Project_Ae44'
+```
+cd Downloads
+projectDir=/sequencers/illumina/{paste here}
+rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
+```
+- Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
+```
+cd Downloads
+wget -e robots=off -r --accept *.fastq.gz {paste here}
+```
+
+### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
@@ -117,5 +114,39 @@ rsync -azvu {yourNetId}@farnam.hpc.yale.edu:$projectDir .
 cd Downloads
 wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here}
 ```
+### How to perform basic Quality analyses to the raw data?
+Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+- run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
+  - Menu - file to open one of a ...R1_???.fasta.gz file.
+  - Menu - file to save report.
+- You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
+- *Mac: you might want to allow the software by [System preferences - security - open anyway].
 
+### What are the first linux commands should I learn?
+- essential commands
+  - ls, cd, mkdir, rmdir, cp, mv, ln, rm
+  - cat, less, echo
+  - rsync, wget
+- concepts and operators:
+  - ${}, |, >, >>, *, ?
+
+### What are the first tmux commands should I learn?
+- one time set up to start tmux, then run `tmux` to start it.
+```
+echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
+. .bashrc
+echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
+```
+- once in tmux, type ctrl-b then
+  - ? to see a shortcut list
+  - d/D to detach
+  
+  - c to create a new window
+  - , to rename a window
+  - n/l/number to select next/last/specific window; mouse can be used.
+  
+  - "/% to create a new pane horizontally/vertically.
+  - x to kill a pane; `exit` command is preferred if possible.
+  - o/;/q+number to select next/last/specific pane; mouse can be used.
+  - z/ctrl+arrows to maximize/resize a pane; mouse can be used.
   
