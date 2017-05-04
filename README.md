@@ -13,28 +13,28 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 ### for Windows users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
+    ```sh
+    babun update
+    babun shell /bin/bash
+    ln -s $HOMEPATH/Downloads .
+    ```
   - Babun Tip: mouse select to copy, mouse right click to paste
-```sh
-babun update
-babun shell /bin/bash
-ln -s $HOMEPATH/Downloads .
-```
 - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 ### for Mac OS X users
 - run terminal
-```sh
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install wget
-```
+    ```sh
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    brew install wget
+    ```
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
 - One time setup after log on to your cluster account.
-```sh
-echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
-echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
-. bashrc
-echo 'set -g mouse on' >>~/.tmux.conf'
-```
+    ```sh
+    echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
+    echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
+    . bashrc
+    echo 'set -g mouse on' >>~/.tmux.conf'
+    ```
 - Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
 ```
 tmux
@@ -117,10 +117,10 @@ wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
-  - Menu - file to open one of a ...R1_???.fasta.gz file.
-  - Menu - file to save report.
+  - Menu : file to open one of a fasta.gz file.
+  - Menu : file to save report.
 - You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
-- *Mac: you might want to allow the software by [System preferences - security - open anyway].
+- Mac tip: you might want to allow the software by [System preferences - security - open anyway].
 
 ### What are the first linux commands should I learn?
 - essential commands
@@ -128,14 +128,14 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
   - cat, less, echo
   - rsync, wget
 - concepts and operators:
-  - ${}, |, >, >>, *, ?
+  - ${}, |, >, >>, \*, ?
 
 ### What are the first tmux commands should I learn?
 - Why whould i use tmux?
 [See an appetite here](https://www.ocf.berkeley.edu/~ckuehl/tmux/).
 - one time set up to start tmux, then run `tmux` to start it.
 ```sh
-echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
+echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
 . .bashrc
 echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
 ```
