@@ -14,7 +14,7 @@ RNA-Seq Pipelines live on Yale HPC clusters.
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
   - Babun Tip: mouse select to copy, mouse right click to paste
-```bash
+```sh
 babun update
 babun shell /bin/bash
 ln -s $HOMEPATH/Downloads .
@@ -22,14 +22,14 @@ ln -s $HOMEPATH/Downloads .
 - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 ### for Mac OS X users
 - run terminal
-```
+```sh
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install wget
 ```
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
 - One time setup after log on to your cluster account.
-```
+```sh
 echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
 echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
 . bashrc
@@ -89,13 +89,13 @@ Use rsync.
 - Follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
 'sequencerS/.../Project_Ae44'
-```bash
+```sh
 cd Downloads
 projectDir=/sequencers/illumina/{paste here}
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
-```bash
+```sh
 cd Downloads
 wget -e robots=off -r --accept *.fastq.gz {paste here}
 ```
@@ -104,13 +104,13 @@ wget -e robots=off -r --accept *.fastq.gz {paste here}
 - follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
-```
+```sh
 projectDir={paste here}
 cd Downloads
 rsync -azvu {yourNetId}@farnam.hpc.yale.edu:$projectDir .
 ```
 - Alternatively, if you do not have a farnam account:
-```
+```sh
 cd Downloads
 wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/{paste here}
 ```
@@ -134,7 +134,7 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - Why whould i use tmux?
 [See an appetite here](https://www.ocf.berkeley.edu/~ckuehl/tmux/).
 - one time set up to start tmux, then run `tmux` to start it.
-```
+```sh
 echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
 . .bashrc
 echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
