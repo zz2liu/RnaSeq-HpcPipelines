@@ -43,11 +43,11 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     tmux
     ```
 - locate your sequence project folder as described in the 'FAQs:bulk download' section.
-    <pre>
-    projectDir=<ins>__paste here__</ins>
+    ```sh
+    projectDir=__paste here__
     mkdir rawData
     ln -s $projectDir rawData
-    </pre>
+    ```
 - In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS.
 
 ### 3.1 Bowtie2 local single-end pipeline
