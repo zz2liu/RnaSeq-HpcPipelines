@@ -51,7 +51,7 @@ ln -s $projectDir rawData
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g`
 - Example usage for batch mode (Project level) on ruddle
-```bash
+```sh
 #make a new work space/directory
 cd scratch60
 mkdir bowtie2.hg38
@@ -91,7 +91,7 @@ Use rsync.
 'sequencerS/.../Project_Ae44'
 ```sh
 cd Downloads
-projectDir=/sequencers/illumina/{paste here}
+projectDir=/sequencers/illumina/__paste here__
 rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
 ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
