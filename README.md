@@ -140,6 +140,7 @@ echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
 echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
 ```
 - once in tmux, type ctrl-b then
+<pre>
   - ?  to see a shortcut list
   - d/D  to detach and leave everything running in the background
   
@@ -152,4 +153,4 @@ echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
   
   - x  to kill a pane; `exit` command is preferred if possible.
   - ,  to rename a window
-  
+ </pre>
