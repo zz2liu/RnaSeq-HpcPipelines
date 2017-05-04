@@ -39,9 +39,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     . bashrc
     ```
 - Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
-```
-tmux
-```
+    ```
+    tmux
+    ```
 - locate your sequence project folder as described in the 'FAQs:bulk download' section.
     <pre>
     projectDir=<ins>__paste here__</ins>
