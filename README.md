@@ -36,6 +36,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
     . bashrc
     echo 'set -g mouse on' >> ~/.tmux.conf
+    echo 'R_LIBS=${R_LIBS}:$HOME/../zl99/R/x86_64-pc-linux-gnu-library/3.2' >> ~/.Renviron
     ```
 - Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
 ```
