@@ -6,7 +6,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
   - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
     - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-- After you get your account, log into your account with ssh, example `ssh {your netid}@ruddle.hpc.yale.edu`
+- After you get your account, log into your account with ssh, example `ssh __netid__@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
 
 ## 2. Prepare the unix terminal on client side (your laptop/desktop)
@@ -93,8 +93,9 @@ Use rsync.
 'sequencerS/.../Project_Ae44'
 ```sh
 cd Downloads
+netId=__type here__
 projectDir=/sequencers/illumina/__paste here__
-rsync -azvu {yourNetId}@ruddle.hpc.yale.edu:$projectDir
+rsync -azvu $netId@ruddle.hpc.yale.edu:$projectDir
 ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
 ```sh
@@ -107,9 +108,10 @@ wget -e robots=off -r --accept *.fastq.gz __paste here__
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
 ```sh
+netId=__type here__
 projectDir=__paste here__
 cd Downloads
-rsync -azvu {yourNetId}@farnam.hpc.yale.edu:$projectDir .
+rsync -azvu $netId@farnam.hpc.yale.edu:$projectDir .
 ```
 - Alternatively, if you do not have a farnam account:
 ```sh
