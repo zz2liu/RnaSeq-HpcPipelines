@@ -141,7 +141,7 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ```sh
 echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
 . .bashrc
-echo 'set -g mouse on' >>~/.tmux.conf' #works for tmux 2
+echo 'set -g mouse on' >>~/.tmux.conf #works for tmux 2
 ```
 - once in tmux, type ctrl-b then
 
