@@ -33,9 +33,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 - One time setup after log on to your cluster account.
     ```sh
     echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
-    echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0" >> ~/.bashrc
+    echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
     . bashrc
-    echo 'set -g mouse on' >>~/.tmux.conf'
+    echo 'set -g mouse on' >> ~/.tmux.conf
     ```
 - Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
 ```
