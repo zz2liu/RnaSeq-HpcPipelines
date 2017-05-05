@@ -136,15 +136,8 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - You can find tutorial and examples on the [fastqc website](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/).
 - Mac tip: you might want to allow the software by [System preferences - security - open anyway].
 
-### What are the first linux commands should I learn?
-- essential commands
-  - navigation: ls, cd, mkdir, rmdir, cp, mv, ln, rm
-  - view/edit: cat, less, echo, nano
-  - file transfer: rsync, wget
-- concepts and operators:
-  - wildcards: \*, ?
-  - variable: ${}
-  - redirect: |, >, >>
+### How to visualize the bigwig (.bw) files for each sample?
+- You can use IGV, [see here](http://software.broadinstitute.org/software/igv/)
 
 ### What are the first tmux commands should I learn?
 - Why whould i use tmux?
@@ -166,8 +159,15 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     |x              |kill a pane; `exit` linux command is preferred if possible.|
     |m              |__toggle mouse on/off__. Require: `bind m set -g mouse` in your ~/.tmux.conf|
 
-### How to visualize the bigwig (.bw) files for each sample?
-- You can use IGV, [see here](http://software.broadinstitute.org/software/igv/)
+### What are the first linux commands should I learn?
+- essential commands
+  - navigation: ls, cd, mkdir, rmdir, cp, mv, ln, rm
+  - view/edit: cat, less, echo, nano
+  - file transfer: rsync, wget
+- concepts and operators:
+  - wildcards: \*, ?
+  - variable: ${}
+  - redirect: |, >, >>
 
 ### How to move and rename nested files to one folder?
 - You can use a for loop,
