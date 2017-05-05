@@ -152,5 +152,5 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     |z  | toggle maximize/unmaximize a pane |
     |ctrl+arrow/__mouse__  |resize a pane |
     |x              |kill a pane; `exit` linux command is preferred if possible.|
-    |m              |__toggle mouse on/off__. Require: 'bind m set -g mouse' in your ~/.tmux.conf|
+    |m              |__toggle mouse on/off__. Require: `bind m set -g mouse` in your ~/.tmux.conf|
 
