@@ -33,7 +33,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 - One time setup after log on to your cluster account.
     ```sh
     $zl99=$(realpath ~/../zl99)
-    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH' >> ~/.bashrc
+    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH" >> ~/.bashrc
     echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
     echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
     echo "bind m set -g mouse" >> ~/.tmux.conf
