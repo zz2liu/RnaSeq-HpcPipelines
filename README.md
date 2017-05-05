@@ -43,7 +43,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 
 - locate your sequence project folder as described in the [FAQs](#faqs).
     ```sh
-    projectDir=__paste here__
+    projectDir=______
     mkdir rawData
     ln -s $projectDir rawData
     ```
@@ -87,8 +87,8 @@ TBD.
 ### How to download from/upload to the cluster?
 Use rsync. For example:
 ```
-netid=__ __
-newFolder=__ __
+netid=______
+newFolder=______
 #backup/synchronize from you cluster scratch60 folder
 rsync -azvuP $netid@ruddle.hpc.yale.edu:scratch60 ~
 #upload a newFolder to your cluster scratch60
@@ -115,7 +115,7 @@ rsync -azvuP ~/scratch60/$newFolder $netid@ruddle.hpc.yale.edu:scratch60
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
     ```sh
-    netId=__type here__
+    netId=______
     projectDir=__paste here__
     cd Downloads
     rsync -azvu $netId@farnam.hpc.yale.edu:$projectDir .
