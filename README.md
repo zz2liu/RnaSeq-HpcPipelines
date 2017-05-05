@@ -155,7 +155,7 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     |number/__mouse__ |select a specific window<br> |
     |"/%            |create a new pane horizontally/vertically |
     |o/;   |select next/last pane |
-    |q+number/__mouse__   |select a specific pane <br> |
+    |q+number/arrow/__mouse__   |select a specific pane <br> |
     |z  | toggle maximize/unmaximize a pane |
     |ctrl+arrow/__mouse__  |resize a pane |
     |x              |kill a pane; `exit` linux command is preferred if possible.|
