@@ -161,3 +161,11 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     |x              |kill a pane; `exit` linux command is preferred if possible.|
     |m              |__toggle mouse on/off__. Require: `bind m set -g mouse` in your ~/.tmux.conf|
 
+### How to visualize the bigwig (.bw) files for each sample?
+- You can use IGV, [see here](http://software.broadinstitute.org/software/igv/)
+- You might want to cp/mv all the bigwig files to one folder for covenience, 
+```
+for f in */*.bw; do echo "cp $f ${f/\/sorted.bam/}"; done
+```
+  - instead of cp, you might try `ln -s`
+  - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation).
