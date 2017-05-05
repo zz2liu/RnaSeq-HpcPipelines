@@ -39,9 +39,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     echo "bind m set -g mouse" >> ~/.tmux.conf
     . bashrc
     ```
-- Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in FAQs.
+- Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
 
-- locate your sequence project folder as described in the 'FAQs:bulk download' section.
+- locate your sequence project folder as described in the [FAQs](#faqs).
     ```sh
     projectDir=__paste here__
     mkdir rawData
@@ -83,7 +83,7 @@ TBD.
 TBD.
 
 
-## FAQs {#faqs}
+## FAQs
 ### How to download from/upload to the cluster?
 Use rsync.
 
