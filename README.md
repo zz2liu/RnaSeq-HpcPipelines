@@ -137,23 +137,17 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ### What are the first tmux commands should I learn?
 - Why whould i use tmux?
 [See an appetite here](https://www.ocf.berkeley.edu/~ckuehl/tmux/).
-- one time set up to start tmux, then run `tmux` to start it.
-    ```sh
-    echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
-    . .bashrc
-    echo 'set -g mouse on' >>~/.tmux.conf #works for tmux 2
-    ```
 - once in tmux, type ctrl-b then
 
-    |key  |to do|
+    |type a key  |to |
     |----:|-----|
-    |?              |to see a shortcut list|
-    |d/D            |to detach and leave everything running in the background|
-    |c              |to create a new window|
-    |n/l/number     |to select next/last/specific window; __mouse can be used__.|
-    |"/%            |to create a new pane horizontally/vertically.|
-    |o/;/q+number   |to select next/last/specific pane; __mouse can be used__.|
-    |z/ctrl+arrows  |to maximize/resize a pane; __mouse can be used__.|
-    |x              |to kill a pane; exit linux command is preferred if possible.|
-    |,              |to rename a window|
+    |?              |see a shortcut list|
+    |d/D            |detach and leave everything running in the background|
+    |c              |create a new window|
+    |n/l/number     |select next/last/specific window; __mouse can be used__.|
+    |"/%            |create a new pane horizontally/vertically.|
+    |o/;/q+number   |select next/last/specific pane; __mouse can be used__.|
+    |z/ctrl+arrows  |maximize/resize a pane; __mouse can be used__.|
+    |x              |kill a pane; exit linux command is preferred if possible.|
+    |m              |__toggle mouse on/off__. Require: 'bind m set -g mouse' in your ~/.tmux.conf|
 
