@@ -39,7 +39,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     echo "bind m set -g mouse" >> ~/.tmux.conf
     . bashrc
     ```
-- Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
+    - Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
 
 - locate your sequence project folder as described in the [FAQs](#faqs).
     ```sh
@@ -47,7 +47,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     mkdir rawData
     ln -s $projectDir rawData
     ```
-- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS.
+- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS. see [FAQs](#faqs) to find how to backup/synchronize to your computer.
 
 ### 3.1 Bowtie2 local single-end pipeline
 - get into a computing node with 8 CPUs and 32Gb Memory:
@@ -66,8 +66,10 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
   * genome: one of {hg38, hg19, mm10, mm9}
   * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
 - Output:
-  * write the count matrix of [gene x sample], RPKM matrix
-  * create sample folders, each with: BAM file, bigwig file, etc
+  * a summary report of the mapping pipeline: summary.report.csv, summary.report.pdf
+  * write the count matrix of [gene x sample]: geneCount.csv, geneInfo.csv
+  * normalization of the gene count matrix: geneRpkm.csv, geneExpr.vst.csv
+  * create sample output folders, each with: BAM file and bigwig file (normalized to Per Million Reads)
   
 ### 3.2 STAR + transcriptome pipeline
 TBD.
@@ -77,15 +79,14 @@ TBD.
 
 ## 4. Differential Gene Expression pipelines
 ### 4.1 DESeq2 pipeline
-- deseq2.vst
-  - Usage example: `deseq2.vst < geneCount.csv > geneVst.csv`
+TBD.
+
 ### 4.2 VoomLimma pipeline
 TBD.
 
-
 ## FAQs
 ### How to download from/upload to the cluster?
-Use rsync. For example:
+- You can use rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/). For example:
 ```
 netid=______
 newFolder=______
