@@ -6,7 +6,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
   - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
     - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-- After you get your account, log into your account with ssh, example `ssh __netid__@ruddle.hpc.yale.edu`
+- After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
 
 ## 2. Prepare the unix terminal on client side (your laptop/desktop)
