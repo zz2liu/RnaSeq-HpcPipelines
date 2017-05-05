@@ -32,16 +32,15 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
 - One time setup after log on to your cluster account.
     ```sh
-    echo 'export PATH=$HOME/../zl99/code/ngs/pipelines:$PATH' >> ~/.bashrc
-    echo 'alias tmux="tmux detach -a; tmux a || tmux new -s S0"' >> ~/.bashrc
-    echo 'R_LIBS=${R_LIBS}:$HOME/../zl99/R/x86_64-pc-linux-gnu-library/3.2' >> ~/.Renviron
-    echo 'set -g mouse on' >> ~/.tmux.conf
+    $zl99=$(realpath ~/../zl99)
+    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH' >> ~/.bashrc
+    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
+    echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
+    echo "bind m set -g mouse" >> ~/.tmux.conf
     . bashrc
     ```
-- Then every time after log on, use tmux for later access to your working process. See my brief introduction to tmux in FAQs section, and you can [learn more about tmux here](https://gist.github.com/MohamedAlaa/2961058).
-    ```
-    tmux
-    ```
+- Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in FAQs.
+
 - locate your sequence project folder as described in the 'FAQs:bulk download' section.
     ```sh
     projectDir=__paste here__
@@ -84,7 +83,7 @@ TBD.
 TBD.
 
 
-## FAQs
+## FAQs {#faqs}
 ### How to download from/upload to the cluster?
 Use rsync.
 
