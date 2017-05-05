@@ -52,24 +52,26 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ### 3.1 Bowtie2 local single-end pipeline
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g`
-- Example usage for batch mode (Project level) on ruddle
+- make a new folder for output, for example
     ```sh
-    #make a new work space/directory
     cd scratch60
     mkdir bowtie2.hg38
     cd bowtie2.hg38
+    ```
 
+- Example usage for mapping and counting in batch mode (Project level) on ruddle
+    ```sh
     projectDir=~/rawData/Project_Aea44 #point to your project folder
     bowtie2localSeBatch.sh hg38 $projectDir
     ```
-- Arguments:
-  * genome: one of {hg38, hg19, mm10, mm9}
-  * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
-- Output:
-  * a summary report of the mapping pipeline: summary.report.csv, summary.report.pdf
-  * write the count matrix of [gene x sample]: geneCount.csv, geneInfo.csv
-  * normalization of the gene count matrix: geneRpkm.csv, geneExpr.vst.csv
-  * create sample output folders, each with: BAM file and bigwig file (normalized to Per Million Reads)
+  - Arguments:
+    * genome: one of {hg38, hg19, mm10, mm9}
+    * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
+  - Output:
+    * a summary report of the mapping pipeline: summary.report.csv, summary.report.pdf
+    * write the count matrix of [gene x sample]: geneCount.csv, geneInfo.csv
+    * normalization of the gene count matrix: geneRpkm.csv, geneExpr.vst.csv
+    * create sample output folders, each with: BAM file and bigwig file (normalized to Per Million Reads)
   
 ### 3.2 STAR + transcriptome pipeline
 TBD.
