@@ -32,7 +32,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
 - One time setup after log on to your cluster account.
     ```sh
-    $zl99=$(realpath ~/../zl99)
+    zl99=$(realpath ~/../zl99)
     echo "export PATH=$zl99/code/ngs/pipelines:\$PATH" >> ~/.bashrc
     echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
     echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
@@ -138,11 +138,13 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 ### What are the first linux commands should I learn?
 - essential commands
-  - ls, cd, mkdir, rmdir, cp, mv, ln, rm
-  - cat, less, echo
-  - rsync, wget
+  - navigation: ls, cd, mkdir, rmdir, cp, mv, ln, rm
+  - view/edit: cat, less, echo, nano
+  - file transfer: rsync, wget
 - concepts and operators:
-  - ${}, |, >, >>, \*, ?
+  - wildcards: \*, ?
+  - variable: ${}
+  - redirect: |, >, >>
 
 ### What are the first tmux commands should I learn?
 - Why whould i use tmux?
@@ -166,9 +168,11 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
 ### How to visualize the bigwig (.bw) files for each sample?
 - You can use IGV, [see here](http://software.broadinstitute.org/software/igv/)
-- You might want to cp/mv all the bigwig files to one folder for covenience, 
+
+### How to move and rename nested files to one folder?
+- You can use a for loop,
 ```
-for f in */*.bw; do echo "cp $f ${f/\/sorted.bam/}"; done
+for f in */*.bw; do cp $f ${f/\/sorted.bam/}; done
 ```
   - instead of cp, you might try `ln -s`
   - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation).
