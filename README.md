@@ -85,15 +85,22 @@ TBD.
 
 ## FAQs
 ### How to download from/upload to the cluster?
-Use rsync.
+Use rsync. For example:
+```
+netid=__ __
+newFolder=__ __
+#backup/synchronize from you cluster scratch60 folder
+rsync -azvuP $netid@ruddle.hpc.yale.edu:scratch60 ~
+#upload a newFolder to your cluster scratch60
+rsync -azvuP ~/scratch60/$newFolder $netid@ruddle.hpc.yale.edu:scratch60
+```
 
 ### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
 - Follow the download link provided in their email, click the link to your project.
-- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 
-'sequencerS/.../Project_Ae44'
+- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 'sequencerS/.../Project_Ae44' 
     ```sh
     cd Downloads
-    netId=__type here__
+    netId=______
     projectDir=/sequencers/illumina/__paste here__
     rsync -azvu $netId@ruddle.hpc.yale.edu:$projectDir
     ```
