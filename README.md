@@ -141,13 +141,16 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
     |type a key  |to |
     |----:|-----|
-    |?              |see a shortcut list|
-    |d/D            |detach and leave everything running in the background|
-    |c              |create a new window|
-    |n/l/number     |select next/last/specific window; __mouse can be used__.|
-    |"/%            |create a new pane horizontally/vertically.|
-    |o/;/q+number   |select next/last/specific pane; __mouse can be used__.|
-    |z/ctrl+arrows  |maximize/resize a pane; __mouse can be used__.|
-    |x              |kill a pane; exit linux command is preferred if possible.|
+    |?              |see a shortcut list |
+    |d/D            |detach and leave everything running in the background |
+    |c              |create a new window |
+    |n/l     |select next/last window |
+    |number/__mouse__ |select a specific window<br> |
+    |"/%            |create a new pane horizontally/vertically |
+    |o/;   |select next/last pane |
+    |q+number/__mouse__   |select a specific pane <br> |
+    |z  | toggle maximize/unmaximize a pane |
+    |ctrl+arrow/__mouse__  |resize a pane |
+    |x              |kill a pane; `exit` linux command is preferred if possible.|
     |m              |__toggle mouse on/off__. Require: 'bind m set -g mouse' in your ~/.tmux.conf|
 
