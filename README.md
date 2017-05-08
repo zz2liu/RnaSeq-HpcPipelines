@@ -71,7 +71,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     * a summary report of the mapping pipeline: summary.report.csv, summary.report.pdf
     * write the count matrix of [gene x sample]: geneCount.csv, geneInfo.csv
     * normalization of the gene count matrix: geneRpkm.csv, geneExpr.vst.csv
-    * create sample output folders, each with: BAM file and bigwig file (normalized to Per Million Reads)
+    * create sample output folders, each with: 
+      - BAM file: the alignments.
+      - bigwig file: the coverage at each base normalized to Counts Per Million Reads mapped (CPM).
   
 ### 3.2 STAR + transcriptome pipeline
 TBD.
