@@ -178,3 +178,8 @@ for f in */*.bw; do cp $f ${f/\/sorted.bam/}; done
 ```
   - instead of cp, you might try `ln -s`
   - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation).
+
+### How to filter the gene count data by an arbitrary criteria?
+You can do this in a spreadsheet.  An autofilter following [countif function](https://www.ablebits.com/office-addins-blog/2014/07/02/excel-countif-examples/) might suffice.
+
+
