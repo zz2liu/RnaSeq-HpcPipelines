@@ -77,16 +77,20 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
   
 ### 3.2 STAR + transcriptome pipeline
 TBD.
+Reference: [STAR](https://github.com/alexdobin/STAR).
 
 ### 3.3 Tophat2 + transcriptome pipeline
 TBD.
+Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 
 ## 4. Differential Gene Expression pipelines
 ### 4.1 DESeq2 pipeline
 TBD.
+Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
 ### 4.2 VoomLimma pipeline
 TBD.
+Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/limma.html).
 
 ## FAQs
 ### How to download from/upload to the cluster?
