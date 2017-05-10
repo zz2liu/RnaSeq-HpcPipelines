@@ -177,10 +177,10 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
   - redirect: |, >, >>
 
 ### How to move and rename nested files to one folder?
-- You can use a for loop,
-```
-for f in */*.bw; do cp $f ${f/\/sorted.bam/}; done
-```
+- You can use a for loop, for example
+  ```
+  for f in */*.bw; do cp $f ${f/\/sorted.bam/}; done
+  ```
   - instead of cp, you might try `ln -s`
   - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation).
 
