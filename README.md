@@ -1,6 +1,6 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC **clusters**.
-## 1. Request an account on a yale HPC cluster, and get preprared
+## 1. Request an account on a yale HPC cluster, and get preprared for the pipelines
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
   - On the account request page, check farnam and ruddle (if you have data from YCGA).
   - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
@@ -8,6 +8,16 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 - After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
+- One time setup to your cluster account
+    ```sh
+    zl99=$(realpath ~/../zl99)
+    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH" >> ~/.bashrc
+    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
+    echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
+    echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
+    . ~/.bashrc
+    ```
+- Then every time after log on, run `tmux` for access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
 
 ## 2. Prepare the unix terminal on client side (your laptop/desktop)
 ### for Windows users
@@ -30,17 +40,6 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     ```
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
-- One time setup after log on to your cluster account.
-    ```sh
-    zl99=$(realpath ~/../zl99)
-    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH" >> ~/.bashrc
-    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
-    echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
-    . ~/.bashrc
-    ```
-    - Then every time after log on, run `tmux` for later access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
-
 - locate your sequence project folder as described in the [FAQs](#faqs).
     ```sh
     projectDir=______
@@ -53,6 +52,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g` 
 or `srun --pty -c8 --mem-per-cpu=4000 #--J testJob`
+
 - make a new folder for output, for example
     ```sh
     cd scratch60
@@ -153,19 +153,24 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
     |type a key  |to |
     |----:|-----|
-    |?              |see a shortcut list |
-    |d/D            |detach and leave everything running in the background |
+    |d            |detach and leave everything running in the background |
     |c              |create a new window |
     |n/l     |select next/last window |
     |number/__mouse__ |select a specific window<br> |
+    |x              |kill the current pane; `exit` linux command is preferred if possible.|
+    |?              |see a shortcut list |
+    
+    - to use panes and mouse
+    
+    |type a key | to |
+    | ---: | --- |
     |"/%            |create a new pane horizontally/vertically |
     |o/;   |select next/last pane |
     |q+number/arrow/__mouse__   |select a specific pane <br> |
     |z  | toggle maximize/unmaximize a pane |
     |ctrl+arrow/__mouse__  |resize a pane |
-    |x              |kill a pane; `exit` linux command is preferred if possible.|
     |m              |__toggle mouse on/off__. Require: `bind m set -g mouse` in your ~/.tmux.conf|
-
+    
 ### What are the first linux commands should I learn?
 - essential commands
   - navigation: ls, cd, mkdir, rmdir, cp, mv, ln, rm
