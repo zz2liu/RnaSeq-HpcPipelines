@@ -51,7 +51,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ### 3.1 Bowtie2 local single-end pipeline
 - get into a computing node with 8 CPUs and 32Gb Memory:
 `qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g` 
-or `srun --pty -c8 --mem-per-cpu=4000 #--J testJob`
+or `srun --pty -p interactive -c8 --mem-per-cpu=4000 bash #--J testJob`
 
 - make a new folder for output, for example
     ```sh
