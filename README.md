@@ -1,24 +1,5 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC **clusters**.
-## 1. Request an account on a yale HPC cluster, and get preprared for the pipelines
-- Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
-  - On the account request page, check farnam and ruddle (if you have data from YCGA).
-  - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
-    - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
-    - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-- After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
-  - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
-- One time setup to your cluster account
-    ```sh
-    zl99=$(realpath ~/../zl99)
-    echo "export PATH=$zl99/code/ngs/pipelines:\$PATH" >> ~/.bashrc
-    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
-    echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
-    . ~/.bashrc
-    ```
-- Then every time after log on, run `tmux` for access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
-
 ## 2. Prepare the unix terminal on client side (your laptop/desktop)
 ### for Windows users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
@@ -38,21 +19,45 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget
     ```
+## 2. Request an account on a yale HPC cluster, and get preprared for the pipelines
+- Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
+  - On the account request page, check farnam and ruddle (if you have data from YCGA).
+  - While waiting for your accounts, familiarize yourself with basic linux concepts and commands. 
+    - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
+    - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
+- After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
+  - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
+- One time setup to your cluster account
+    ```sh
+    zl99=$(realpath ~/../zl99)
+    echo 'export PATH="~/../zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
+    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
+    # echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
+    echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
+    . ~/.bashrc
+    ```
+- Then every time after log on, run `tmux` for access to your working process. See my brief introduction to tmux in [FAQs](#faqs).
+
+
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
+
+- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS. see [FAQs](#faqs) to find how to backup/synchronize to your computer.
+
+### 3.1 Bowtie2 local single-end pipeline
+- get into a computing node with 8 CPUs and 32Gb Memory:
+`srun --pty -p interactive -c8 --mem-per-cpu=4000 bash` or `srun --pty -c8 --mem-per-cpu=4000 bash`
+
+- Prepare the software dependencies
+  ```sh
+  prepare_pipelines.sh
+  ```
 - locate your sequence project folder as described in the [FAQs](#faqs).
     ```sh
     projectDir=______
     mkdir rawData
     ln -s $projectDir rawData
     ```
-- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS. see [FAQs](#faqs) to find how to backup/synchronize to your computer.
-
-### 3.1 Bowtie2 local single-end pipeline
-- get into a computing node with 8 CPUs and 32Gb Memory:
-`qsub -I -q interactive -lnodes=1:ppn=8 -lmem=32g` 
-or `srun --pty -p interactive -c8 --mem-per-cpu=4000 bash #--J testJob`
-
 - make a new folder for output, for example
     ```sh
     cd scratch60
@@ -60,9 +65,14 @@ or `srun --pty -p interactive -c8 --mem-per-cpu=4000 bash #--J testJob`
     cd bowtie2.hg38
     ```
 
-- Example usage for mapping and counting in batch mode (Project level) on ruddle
+- Example usage for mapping and counting in batch mode (Project level)
     ```sh
-    projectDir=~/rawData/Project_Aea44 #point to your project folder
+    projectDir=______
+    bowtie2localSeBatch.sh hg38 $projectDir
+    ```
+    For testing before you run your own data,
+    ```sh
+    projectDir=~/../zl99/project/Project_Test1M
     bowtie2localSeBatch.sh hg38 $projectDir
     ```
   - Arguments:
