@@ -1,6 +1,6 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC **clusters**.
-## 2. Prepare the unix terminal on client side (your laptop/desktop)
+## 1. Prepare the unix terminal on client side (your laptop/desktop)
 ### for Windows users
 - download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  You might pin it to the taskbar for convenience.
@@ -96,7 +96,7 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 
 ## 4. Differential Gene Expression pipelines
 ### 4.1 DESeq2 pipeline
-TBD.
+TBD on 7/10/2017.
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
 ### 4.2 VoomLimma pipeline
