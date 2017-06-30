@@ -84,10 +84,20 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 - Example/test usage
     ```sh
     cd ~/scratch60/Project_Test1M #cd to your output directory of the mapping pipeline
+    mkdir deseq2; cd $_
     prepare_pipelines
-    deseq2ContrastBatch sampleInfo.csv A-Ctrl B-Ctrl B-A
+    deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv A-Ctrl,B-Ctrl,B-A
     ```
-
+    - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
+    - Arguments:
+        - geneCountFile: a csv file with raw read counts of geneID x sampleName
+        - sampleInfoFile: a csv file with sample info. The first three columns are required - sampleName,sampleShortName,sampleGroup. sampleName should match that of geneCountFile; sampleShortName will be used in plots; sampleGroup will be used in a comparision/contrast.
+        - contrast: a comparison between two 'sampleGroup's in the format of groupNumerator-groupDenominator
+    - Output to the current directory:
+        - A normalized count matrix
+        - PCA plot
+        - Differential expression results as seperate folders, each for a comparison
+        
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
 ### 4.2 VoomLimma pipeline
