@@ -57,18 +57,18 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     prepare_pipelines
     bowtie2localSeBatch hg38 $projectDir  #set in the previous step
     ```
-  - Usage: 
+- Usage: 
     `bowtie2localSeBatch <genome> <projectDir>`
-  - Arguments:
+- Arguments:
     * genome: one of {hg38, hg19, mm10, mm9}
     * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
-  - Output:
+- Output: write to the current directory
     * a summary report of the mapping pipeline: summary.report.csv, summary.report.pdf
-    * write the count matrix of [gene x sample]: geneCount.csv, geneInfo.csv
-    * normalization of the gene count matrix: geneRpkm.csv, geneExpr.vst.csv
-    * create sample output folders, each with: 
-      - BAM file: the alignments.
-      - bigwig file: the coverage at each base normalized to Counts Per Million Reads mapped (CPM).
+    * a count matrix of [geneId x sampleName]: geneCount.csv, geneInfo.csv
+    * the normalized gene expression matrices: geneRpkm.csv, geneExpr.vst.csv
+    * sample output folders, each with: 
+        - BAM file: the alignments.
+        - bigwig file: the coverage at each base normalized to Counts Per Million Reads mapped (CPM).
 - To run your own project, locate your sequence project folder as described in the [FAQs](#faqs), and type after the `projectDir=` to replace the test project dir.
 
 ### 3.2 STAR + transcriptome pipeline
@@ -88,15 +88,15 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     prepare_pipelines
     deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv A-Ctrl,B-Ctrl,B-A
     ```
-    - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
-    - Arguments:
-        - geneCountFile: a csv file with raw read counts of geneID x sampleName
-        - sampleInfoFile: a csv file with sample info. The first three columns are required - sampleName,sampleShortName,sampleGroup. sampleName should match that of geneCountFile; sampleShortName will be used in plots; sampleGroup will be used in a comparision/contrast.
-        - contrast: a comparison between two 'sampleGroup's in the format of groupNumerator-groupDenominator
-    - Output to the current directory:
-        - A normalized count matrix
-        - PCA plot
-        - Differential expression results as seperate folders, each for a comparison
+- Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
+- Arguments:
+    - geneCountFile: a csv file with raw read counts of geneID x sampleName
+    - sampleInfoFile: a csv file with sample info. The first three columns are required - sampleName,sampleShortName,sampleGroup. sampleName should match that of geneCountFile; sampleShortName will be used in plots; sampleGroup will be used in a comparision/contrast.
+    - a contrast: a comparison between two 'sampleGroup's in the format of groupNumerator-groupDenominator
+- Output: write to the current directory
+    - A normalized count matrix
+    - PCA plot
+    - Differential expression results as seperate folders, each for a comparison
         
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
