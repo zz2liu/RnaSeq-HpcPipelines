@@ -91,7 +91,10 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
 - Arguments:
     - geneCountFile: a csv file with raw read counts of geneID x sampleName
-    - sampleInfoFile: a csv file with sample info. The first three columns are required - sampleName,sampleShortName,sampleGroup. sampleName should match that of geneCountFile; sampleShortName will be used in plots; sampleGroup will be used in a comparision/contrast.
+    - sampleInfoFile: a csv file with sample info. The first three columns are required.
+        1. sampleName should match that of geneCountFile
+        1. sampleShortName will be used in plots
+        1. sampleGroup will be used in a comparision/contrast.
     - a contrast: a comparison between two 'sampleGroup's in the format of groupNumerator-groupDenominator
 - Output: write to the current directory
     - A normalized count matrix
