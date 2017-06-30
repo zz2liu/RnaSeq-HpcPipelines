@@ -1,8 +1,8 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC **clusters**.
-## 1. Prepare the unix terminal on client side (your laptop/desktop)
+## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
-- download and install [babun](http://babun.github.io/).  Run the install.bat file, it will take a while.
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Run the install.bat file, it will take a while.
 - run babun.bat and you are at the terminal!  Then type the following lines (each line is a bash command, # is for comment):
     ```sh
     babun update
@@ -16,6 +16,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ### for Mac OS X users
 - run terminal, then type the following lines (each line is a bash command, # is for comment)
     ```sh
+    # install Homebrew, the popular free package manager for OSX
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
     ```
@@ -27,7 +28,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 - After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
-- One time setup to your cluster account: type the following, then exit by closing your terminal, and log in again.
+- One time setup to your cluster account: log onto the cluster and type the following, then exit by closing your terminal.
     ```sh
     zl99=$(realpath ~/../zl99)
     echo 'export PATH="$zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
@@ -35,15 +36,15 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     # echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
-- Then every time after log on, run `tmux` for access to your working process. See my brief introduction to tmux in [FAQs](#faqs). 
-- To run one of the pipelines, request a computing node with 8 CPUs and 32Gb Memory:
+- Then every time after log on, run tmux for access to your working process. See my brief introduction to tmux in [FAQs](#faqs). 
+```tmux```
+- To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
 ```
 srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
 ```
+- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
-
-- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days, following an email notification from ITS. see [FAQs](#faqs) to find how to backup/synchronize to your computer.
 
 ### 3.1 Bowtie2 local single-end pipeline
 
