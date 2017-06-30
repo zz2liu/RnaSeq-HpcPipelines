@@ -37,11 +37,11 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
 - Then every time after log on, run tmux for access to your working process. See my brief introduction to tmux in [FAQs](#faqs). 
-```tmux```
+    ```tmux```
 - To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
-```
-srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
-```
+    ```
+    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
+    ```
 - In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
 
 ## 3. Fastq to Gene Count pipelines on a HPC cluster
@@ -57,7 +57,8 @@ srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     prepare_pipelines
     bowtie2localSeBatch hg38 $projectDir  #set in the previous step
     ```
-  - Usage: bowtie2localSeBatch.sh <genome> <projectDir>
+  - Usage: 
+    `bowtie2localSeBatch <genome> <projectDir>`
   - Arguments:
     * genome: one of {hg38, hg19, mm10, mm9}
     * projectDir: the Project folder with all you samples, each as folder with fastq.gz files.  Note that only R1 files are used for this single ended (Se) pipeline.
@@ -81,11 +82,11 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 ## 4. Differential Gene Expression pipelines
 ### 4.1 DESeq2 pipeline
 - Example/test usage
-```sh
-cd ~/scratch60/Project_Test1M #cd to your output directory of the mapping pipeline
-prepare_pipelines
-deseq2ContrastBatch sampleInfo.csv A-Ctrl B-Ctrl B-A
-```
+    ```sh
+    cd ~/scratch60/Project_Test1M #cd to your output directory of the mapping pipeline
+    prepare_pipelines
+    deseq2ContrastBatch sampleInfo.csv A-Ctrl B-Ctrl B-A
+    ```
 
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
