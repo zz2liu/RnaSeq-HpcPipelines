@@ -36,7 +36,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 - After your account is approved, you'll receive an email with [a link to upload your public key](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py). 
     - open your terminal,
         ```sh
-        cat ~/id_rsa.pub  #print your public key to screen
+        cat ~/.ssh/id_rsa.pub  #print your public key to screen
         ```
         Then copy the lines starting from 'ssh-rsa' and paste into the box. 
 - log into your account from your terminal, example 
@@ -143,7 +143,7 @@ rsync -azvuP ~/scratch60/$newFolder $netid@ruddle.hpc.yale.edu:scratch60
     cd Downloads
     netId=______
     projectDir=/sequencers/illumina/__paste here__
-    rsync -azvu $netId@ruddle.hpc.yale.edu:$projectDir
+    rsync -azvu $netId@ruddle.hpc.yale.edu:$projectDir .
     ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
     ```sh
