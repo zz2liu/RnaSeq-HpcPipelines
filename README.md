@@ -165,7 +165,8 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ### Tmux: why to use and how?
 - Why whould i use tmux?
     - keep programs running after you disconnect (e.g. when working on a remote server via ssh)
-    - split your terminal into ![window/tabs and panes](https://www.ocf.berkeley.edu/~ckuehl/tmux/tmux-labels.png)
+    - split your terminal into windows(tabs) and panes <br>
+    ![windows and panes](https://www.ocf.berkeley.edu/~ckuehl/tmux/tmux-labels.png)
 
 - once in tmux, type ctrl-b then
 
