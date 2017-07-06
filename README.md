@@ -11,7 +11,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     ```
   - Babun Tip: mouse select to copy, mouse right click to paste
 
-- windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
+- Alternative unix terminals on windows:
+    - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
+    - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 
 ### for Mac OS X users
 - run terminal, then type the following lines (each line is a bash command, # is for comment)
