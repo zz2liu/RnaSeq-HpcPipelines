@@ -2,18 +2,19 @@
 RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
-- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a while.
-- search and run babun.bat and you are at the terminal! You might want to pin it to the task bar.
-- Then type/paste the following lines (each line is a bash command, # is for comment):
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a while. 
+- And at last you will be at the terminal! You might want to pin it to the task bar (or search and run babun.bat later).
+- Then paste the following lines into your terminal (each line is a bash command, # is for comment):
+    - Babun Tip: mouse select text to copy, mouse right click to paste
     ```sh
     babun update
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
-    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
+    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen <<< "
+    
+    " #to generate your ssh key pairs needed for login to the clusters.
     chmod -R 600 ~/.ssh/id_rsa   #make your private key safe
     ```
-  - Babun Tip: mouse select text to copy, mouse right click to paste
-
 - Alternative unix terminals on windows:
     - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
     - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
