@@ -175,12 +175,13 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     
 - More advanced: to use panes (multple terminals within a window/tab)
     
-    |type a key | to |
+    |type ctrl-b, then | to |
     | ---: | --- |
     |" / %            |create a new pane vertically/horizontally |
     |o / arrow   |select next/specific pane |
     |ctrl+arrow  |resize a pane |
     |z  |toggle maximize/unmaximize a pane |
+    |d  |detach and leave everthing running in the background |
     |?              |see a shortcut list |
     
 ### What are the first linux commands should I learn?
