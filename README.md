@@ -162,16 +162,18 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ### How to visualize the bigwig (.bw) files for each sample?
 - You can use IGV, [see here](http://software.broadinstitute.org/software/igv/)
 
-### What are the first tmux commands should I learn?
+### Tmux: why to use and how?
 - Why whould i use tmux?
-[See an appetite here](https://www.ocf.berkeley.edu/~ckuehl/tmux/).
+    - keep programs running after you disconnect (e.g. when working on a remote server via ssh)
+    - split your terminal into ![window/tabs and panes](https://www.ocf.berkeley.edu/~ckuehl/tmux/tmux-labels.png)
+
 - once in tmux, type ctrl-b then
 
     |type a key  |to |
     |----:|-----|
     |c              |create a new window (you might call it a tab) |
     |n / number     |select next/specific window |
-    |x              |kill the current terminal |
+    |x              |kill the current pane |
     
 - More advanced: to use panes (multple terminals within a window/tab)
     
