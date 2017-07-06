@@ -2,7 +2,7 @@
 RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
-- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a while. 
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a few minutes. 
 - And at last you will be at the terminal! You might want to pin it to the task bar (or search and run babun.bat later).
 - Then paste the following lines into your terminal (each line is a bash command, # is for comment):
     - Babun Tip: mouse select text to copy, mouse right click to paste
