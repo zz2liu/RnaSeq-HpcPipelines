@@ -3,13 +3,15 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
 - download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Run the install.bat file, it will take a while.
-- run babun.bat and you are at the terminal!  Then type the following lines (each line is a bash command, # is for comment):
+- run babun.bat and you are at the terminal!  Then type/paste the following lines (each line is a bash command, # is for comment):
     ```sh
     babun update
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
+    ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
+    chmod -R 600 ~/.ssh/id_rsa   #make your private key safe
     ```
-  - Babun Tip: mouse select to copy, mouse right click to paste
+  - Babun Tip: mouse select text to copy, mouse right click to paste
 
 - Alternative unix terminals on windows:
     - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
@@ -21,6 +23,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     # install Homebrew, the popular free package manager for OSX
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
+    ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
     ```
 ## 2. Request an account on a yale HPC cluster, and get preprared for the pipelines
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
@@ -28,9 +31,18 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
   - While waiting for your accounts, familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
     - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-- After you get your account, log into your account with ssh, example `ssh mynetid@ruddle.hpc.yale.edu`
+- After your account is approved, you'll receive an email with [a link to upload your public key](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py). 
+    - open your terminal,
+        ```sh
+        cat ~/id_rsa.pub  #print your public key to screen
+        ```
+        Then copy the lines starting from 'ssh-rsa' and paste into the box. 
+- log into your account from your terminal, example 
+    ```
+    ssh mynetid@farnam.hpc.yale.edu
+    ```
   - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
-- One time setup to your cluster account: log onto the cluster and type the following, then exit by closing your terminal.
+- after you log onto the cluster, type/paste the following lines for a one-time setup to your cluster account:
     ```sh
     zl99=$(realpath ~/../zl99)
     echo 'export PATH="$zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
@@ -38,6 +50,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     # echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
+    then exit by closing your terminal.
 - Then every time after log on, run tmux for access to your working processes. See my brief introduction to tmux in [FAQs](#faqs). 
     ```tmux```
 - To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
