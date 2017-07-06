@@ -200,10 +200,10 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ### How to move and rename nested files to one folder?
 - You can use a for loop, for example
   ```
-  for f in */*.bw; do cp $f ${f/\/sorted.bam/}; done
+  # move each sorted.bam.bw in the subfolders to the current folder and rename as the_subfolder.bw
+  for f in */*.bw; do mv $f ${f/\/sorted.bam/}; done
   ```
-  - instead of cp, you might try `ln -s`
-  - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation).
+  - `${string/pattern/replacement}` is a [bash string manipulation](http://www.thegeekstuff.com/2010/07/bash-string-manipulation). The pattern will be deleted without replacement.
 
 ### How to filter the gene count data by an arbitrary criteria?
 You can do this in a spreadsheet.  An autofilter following [countif function](https://www.ablebits.com/office-addins-blog/2014/07/02/excel-countif-examples/) might suffice.
