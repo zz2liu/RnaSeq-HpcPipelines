@@ -38,7 +38,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     # echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
-- Then every time after log on, run tmux for access to your working process. See my brief introduction to tmux in [FAQs](#faqs). 
+- Then every time after log on, run tmux for access to your working processes. See my brief introduction to tmux in [FAQs](#faqs). 
     ```tmux```
 - To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
     ```
@@ -169,23 +169,19 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 
     |type a key  |to |
     |----:|-----|
-    |d            |detach and leave everything running in the background |
-    |c              |create a new window |
-    |n/l     |select next/last window |
-    |number/__mouse__ |select a specific window<br> |
-    |x              |kill the current pane; `exit` linux command is preferred if possible.|
-    |?              |see a shortcut list |
+    |c              |create a new window (you might call it a tab) |
+    |n / number     |select next/specific window |
+    |x              |kill the current terminal |
     
-    - to use panes and mouse
+- More advanced: to use panes (multple terminals within a window/tab)
     
     |type a key | to |
     | ---: | --- |
-    |"/%            |create a new pane horizontally/vertically |
-    |o/;   |select next/last pane |
-    |q+number/arrow/__mouse__   |select a specific pane <br> |
-    |z  | toggle maximize/unmaximize a pane |
-    |ctrl+arrow/__mouse__  |resize a pane |
-    |m              |__toggle mouse on/off__. Require: `bind m set -g mouse` in your ~/.tmux.conf|
+    |" / %            |create a new pane vertically/horizontally |
+    |o / arrow   |select next/specific pane |
+    |ctrl+arrow  |resize a pane |
+    |z  |toggle maximize/unmaximize a pane |
+    |?              |see a shortcut list |
     
 ### What are the first linux commands should I learn?
 - essential commands
