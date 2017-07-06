@@ -3,12 +3,13 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
 - download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Run the install.bat file, it will take a while.
-- run babun.bat and you are at the terminal!  Then type/paste the following lines (each line is a bash command, # is for comment):
+- search and run babun.bat and you are at the terminal! You might want to pin it to the task bar.
+- Then type/paste the following lines (each line is a bash command, # is for comment):
     ```sh
     babun update
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
-    ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
+    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
     chmod -R 600 ~/.ssh/id_rsa   #make your private key safe
     ```
   - Babun Tip: mouse select text to copy, mouse right click to paste
@@ -23,7 +24,7 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     # install Homebrew, the popular free package manager for OSX
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
-    ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
+    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
     ```
 ## 2. Request an account on a yale HPC cluster, and get preprared for the pipelines
 - Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
