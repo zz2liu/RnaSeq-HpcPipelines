@@ -2,7 +2,7 @@
 RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### for Windows users
-- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Run the install.bat file, it will take a while.
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a while.
 - search and run babun.bat and you are at the terminal! You might want to pin it to the task bar.
 - Then type/paste the following lines (each line is a bash command, # is for comment):
     ```sh
@@ -27,9 +27,9 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
     ```
 ## 2. Request an account on a yale HPC cluster, and get preprared for the pipelines
-- Go to [yale center for research computing](http://research.computing.yale.edu/support/hpc/getting-started)
-  - On the account request page, check farnam and ruddle (if you have data from YCGA).
-  - While waiting for your accounts, familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
+- Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-reque
+- check farnam, also check ruddle if you have sequenced on west campus/YCGA.
+- While waiting for your accounts, familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
     - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 - After your account is approved, you'll receive an email with [a link to upload your public key](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py). 
@@ -158,12 +158,12 @@ rsync -azvuP ~/scratch60/$newFolder $netid@ruddle.hpc.yale.edu:scratch60
     netId=______
     projectDir=__paste here__
     cd Downloads
-    rsync -azvu $netId@farnam.hpc.yale.edu:$projectDir .
+    rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir .
     ```
 - Alternatively, if you do not have a farnam account:
     ```sh
     cd Downloads
-    wget -e robots=off -r --accept *.fastq http://futo.cs.yale.edu:16023/__paste here__
+    wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/__paste here__
     ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
