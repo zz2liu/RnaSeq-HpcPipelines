@@ -187,19 +187,20 @@ Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/l
 ### How to synchronize files with the cluster?
 You can use rsync, comes with the terminal on your computer. For example:
 - set your remoteDir, localDir to synchronize
-```sh
-remoteDir="yourNetid@farnam.hpc.yale.edu:scratch60"
-localDir="~/scratch60"
-```
+    ```sh
+    remoteDir="yourNetid@farnam.hpc.yale.edu:scratch60"
+    localDir="~/scratch60"
+    ```
+    Tip: you may drag your folder from your file explorer to the terminal to set the localDir.
 - backup every file and subfolder from your remoteDir (source) to your localDir (target)
-```sh
-rsync -azvuP $remoteDir/ $localDir # with /, transfer everything under the source dir.
-```
+    ```sh
+    rsync -azvuP $remoteDir/ $localDir # with /, transfer everything under the source dir.
+    ```
 - upload a new local folder named 'newFolder' (source) to your remoteDir (target)
-```sh
-#upload a folder named 'newFolder' to your remoteDir
-rsync -azvuP $localDir/newFolder $remoteDir   #without /, transfer the source dir.
-```
+    ```sh
+    #upload a folder named 'newFolder' to your remoteDir
+    rsync -azvuP $localDir/newFolder $remoteDir   #without /, transfer the source dir.
+    ```
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
@@ -217,15 +218,15 @@ rsync -azvuP $localDir/newFolder $remoteDir   #without /, transfer the source di
     ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
     - set the externalLink and targetDir
-    ```sh
-    externalLink=__pastehere__
-    targetDir=~/Downloads
-    ```
+        ```sh
+        externalLink=__pastehere__
+        targetDir=~/Downloads
+        ```
     - Download with wget
-    ```sh
-    cd $targetDir
-    wget -e robots=off -r --accept *.fastq.gz $externalLink
-    ```
+        ```sh
+        cd $targetDir
+        wget -e robots=off -r --accept *.fastq.gz $externalLink
+        ```
 
 ### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, click the link to your project.
@@ -243,11 +244,7 @@ rsync -azvuP $localDir/newFolder $remoteDir   #without /, transfer the source di
     rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir .
     ```
 - Alternatively, if you do not have a farnam account:
-    - set the projectDir, targetDir: replace with your own settings
-    ```sh
-    projectDir=__pastehere__
-    targetDir=~/Downloads
-    ```
+    - set the projectDir, targetDir as above
     - Download with wget: paste the following lines
     ```sh
     cd $targetDir
