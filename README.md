@@ -90,11 +90,14 @@ This might looks overwhelming if your never use linux, but it will payback. Set 
 Generate a gene x sample read counts matrix for your project.
 
 #### Test with the example project
-- paste the following lines to your remote terminal on a computing node
+- Set the parameters: paste the following lines to your cluster terminal on a computing node
     ```sh
     # set up the projectDir and genome
     projectDir="~/../zl99/project/Project_Test1M"
     genome="hg38"
+    ```
+- Run the pipeline, output to a new folder under scratch60: paste the folowing lines
+    ```sh
     # make a new folder in scratch60 for output, using your project name
     mkdir "~/scratch60/$(basename $projectDir)" && cd $_
     # map the reads to genome
@@ -109,22 +112,11 @@ Generate a gene x sample read counts matrix for your project.
     ls -l */*.bam
     ```
     you can check the pipeline documents below for details.
-#### run your own project
+    
+#### Run your own project
 - Locate your sequence project folder as described in the [FAQs](#faqs), or upload a project folder with the same structure (each of the samples as a subfolder with fastq.gz files).
-- Set your projectDir and genome in the following format
-```sh
-# Attention: Replace with you own settings
-projectDir="/path/to/yourProjectDir"
-genome="genomeName"
-```
-- Then paste the following lines, as with the example
-    ```sh
-    # make a new folder in scratch60 for output, using your project name
-    mkdir "~/scratch60/$(basename $projectDir)" && cd $_
-    # map the reads to genome
-    prepare_pipelines
-    bowtie2localSeBatch $genome $projectDir  #set in the previous step
-    ```
+- Set your projectDir and genome as demonstrated in the example, replacing with your own settings after the `=`
+- Then run the pipeline, paste the same lines as with the example. It takes much longer, your might wait overnight.
 - Check the output, as with the example
 - Check the [FAQs](#faqs) if you want to download the results to your computer.
 
@@ -143,28 +135,33 @@ genome="genomeName"
         - bigwig file: the coverage at each base normalized to Counts Per Million Reads mapped (CPM).
 
 ### Mapping: STAR + transcriptome mapping pipeline
-TBD. High priority
+TBD. High priority <br>
 Reference: [STAR](https://github.com/alexdobin/STAR).
 
 ### Mapping: Tophat2 + transcriptome mapping pipeline
-TBD. Low priority.
+TBD. Low priority. <br>
 Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 
 ### Diferential Expression: DESeq2 pipeline
 #### Example/test usage
-```sh
-# set up mappingDir and contrasts
-mappingDir="~/scratch60/Project_Test1M" #output directory of the mapping pipeline
-contrasts="A-Ctrl,B-Ctrl,B-A"
-# run pipeline, output to a new folder ./deseq2
-mkdir $mappingDir/deseq2; cd $_
-prepare_pipelines
-deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
-```
+- Set the parameters: paste the following lines to your cluster terminal on a computing node
+    ```sh
+    # set up mappingDir and contrasts
+    mappingDir="~/scratch60/Project_Test1M" #output directory of the mapping pipeline
+    contrasts="A-Ctrl,B-Ctrl,B-A"
+    ```
+- Run pipeline, output to a new folder under your mappingFolder
+    ```sh
+    # run pipeline, output to a new folder ./deseq2
+    mkdir $mappingDir/deseq2; cd $_
+    prepare_pipelines
+    deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
+    ```
 #### Run your project
-- set your mappingDir and contrasts as demonstrated in the example.
-- create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below)
-- run the pipeline the same as in example
+- Set your mappingDir and contrasts as demonstrated in the example, replacing with your own setting after the `=`
+- Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below)
+- Run the pipeline the same as in example
+- Check the [FAQs](#faqs) if you want to download the results to your computer.
 
 #### Pipeline Document
 - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
