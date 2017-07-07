@@ -204,49 +204,48 @@ You can use rsync, comes with the terminal on your computer. For example:
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
-- Follow the download link provided in their email, click the link to your project.
-- In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 'sequencerS/.../Project_Ae44' 
-- set the projectDir, netId, targetDir on your local terminal
+- Follow the download link provided in their email, copy the link address of your project. 
+- set the projectLink, netId, targetDir on your local terminal
     ```sh
-    projectDir=/sequencers/illumina/__paste here__
-    netId=myNetid
+    projectLink=__pastehere__
     targetDir=~/Downloads #the local folder to download to
+    netId=myNetid
     ```
 - Download with rsync
     ```sh
+    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
     rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
     ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
-    - set the externalLink and targetDir
+    - set the externalLink and targetDir: replace with your settings
         ```sh
         externalLink=__pastehere__
         targetDir=~/Downloads
         ```
-    - Download with wget
+    - Download with wget: paste the following
         ```sh
         cd $targetDir
         wget -e robots=off -r --accept *.fastq.gz $externalLink
         ```
 
 ### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
-- follow the download link provided in their email, click the link to your project.
-- In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
-'/ysm-gpfs/.../Project_Ae4'
-- set the projectDir, targetDir, and netId: replace with your own settings    
+- follow the download link provided in their email, copy the link address of your project.
+- set the projectLink, targetDir, and netId: replace with your own settings    
     ```sh
-    netId=myNetid
-    projectDir=__paste here__
+    projectLink=__paste here__
     targetDir=~/Downloads
+    netId=myNetid
     ```
 - Download with rsync: paste the following lines
     ```sh
-    cd $targetDir
-    rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir .
+    projectDir=${projectLink##*dirName=}
+    rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
     ```
 - Alternatively, if you do not have a farnam account:
-    - set the projectDir, targetDir as above
+    - set the projectLink, targetDir as above
     - Download with wget: paste the following lines
     ```sh
+    projectDir=${projectLink##*dirName=}
     cd $targetDir
     wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/$projectDir
     ```
