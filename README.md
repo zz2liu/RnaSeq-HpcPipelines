@@ -1,22 +1,23 @@
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC **clusters**.
 ## 1. Prepare the unix terminal on your laptop/desktop
-### for Windows users
-- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator on windows.  Extract and run the install.bat file, it will take a few minutes. 
+### For Windows users
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator.  Extract and run the install.bat file, it will take a few minutes. 
 - And at last you will be at the terminal! You might want to pin it to the task bar (or search and run babun.bat later).
-- Then paste the following lines into your terminal (each line is a bash command, # is for comment):
-    - Babun Tip: mouse select text to copy, mouse right click to paste
+- Paste the following lines into your terminal (Babun Tip: mouse select text to copy, mouse right click to paste)
     ```sh
     babun update
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
     ```
+    Note: Each line is a bash command, # is for comment
 - Optional: Alternative unix terminals on windows:
     - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
     - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 
-### for Mac OS X users
-- run terminal, then paste the following lines (each line is a bash command, # is for comment)
+### For Mac OS X users
+- Search and run terminal (you might want to pin it to your dock)
+- Paste the following lines (each line is a bash command, # is for comment)
     ```sh
     # install Homebrew, the popular free package manager for OSX. It will take a few minutes.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -31,14 +32,14 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     chmod 600 ~/.ssh/id_rsa   #make your private key safe
     cat ~/.ssh/id_rsa.pub  #print your public key to screen
     ```
-- Then copy the lines from your terminal starting from 'ssh-rsa',
-- Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py)
-- And paste into the input box.
+    Then copy the lines from your terminal starting from 'ssh-rsa'
+- Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py).<br>
+Paste into the input box.
 - Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
-### Familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
-    - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
-    - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
+### Familiarize yourself with basic linux concepts and commands on the local terminal you just prepared.
+- [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
+- [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
 ## 2. Request and prepare your account on a yale HPC cluster
 ### Request an account 
@@ -150,15 +151,15 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 
 ### Diferential Expression: DESeq2 pipeline
 #### Example/test usage
-    ```sh
-    # set up mappingDir and contrasts
-    mappingDir=~/scratch60/Project_Test1M #output directory of the mapping pipeline
-    contrasts="A-Ctrl,B-Ctrl,B-A"
-    # run pipeline, output to a new folder ./deseq2
-    mkdir $mappingDir/deseq2; cd $_
-    prepare_pipelines
-    deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
-    ```
+```sh
+# set up mappingDir and contrasts
+mappingDir="~/scratch60/Project_Test1M" #output directory of the mapping pipeline
+contrasts="A-Ctrl,B-Ctrl,B-A"
+# run pipeline, output to a new folder ./deseq2
+mkdir $mappingDir/deseq2; cd $_
+prepare_pipelines
+deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
+```
 #### Run your project
 - set your mappingDir and contrasts as demonstrated in the example.
 - create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below)
