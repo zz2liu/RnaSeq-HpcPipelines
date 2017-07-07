@@ -180,50 +180,78 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
 ### Diferential Expression: VoomLimma diferential gene expression pipeline
-TBD. Low priority
+TBD. Low priority <br>
 Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/limma.html).
 
 ## FAQs
-### How to download from/upload to the cluster?
-- You can use rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/). For example:
+### How to synchronize files with the cluster?
+You can use rsync, comes with the terminal on your computer. For example:
+- set your remoteDir, localDir to synchronize
+```sh
+remoteDir="yourNetid@farnam.hpc.yale.edu:scratch60"
+localDir="~/scratch60"
 ```
-netid=______
-newFolder=______
-#backup/synchronize from you cluster scratch60 folder
-rsync -azvuP $netid@ruddle.hpc.yale.edu:scratch60 ~
-#upload a newFolder to your cluster scratch60
-rsync -azvuP ~/scratch60/$newFolder $netid@ruddle.hpc.yale.edu:scratch60
+- backup every file and subfolder from your remoteDir (source) to your localDir (target)
+```sh
+rsync -azvuP $remoteDir/ $localDir # with /, transfer everything under the source dir.
 ```
+- upload a new local folder named 'newFolder' (source) to your remoteDir (target)
+```sh
+#upload a folder named 'newFolder' to your remoteDir
+rsync -azvuP $localDir/newFolder $remoteDir   #without /, transfer the source dir.
+```
+- For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
 - Follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=gpfs_illumina/' and you will get something like 'sequencerS/.../Project_Ae44' 
+- set the projectDir, netId, targetDir on your local terminal
     ```sh
-    cd Downloads
-    netId=______
     projectDir=/sequencers/illumina/__paste here__
-    rsync -azvu $netId@ruddle.hpc.yale.edu:$projectDir .
+    netId=myNetid
+    targetDir=~/Downloads #the local folder to download to
+    ```
+- Download with rsync
+    ```sh
+    rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
     ```
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
+    - set the externalLink and targetDir
     ```sh
-    cd Downloads
-    wget -e robots=off -r --accept *.fastq.gz __paste here__
+    externalLink=__pastehere__
+    targetDir=~/Downloads
+    ```
+    - Download with wget
+    ```sh
+    cd $targetDir
+    wget -e robots=off -r --accept *.fastq.gz $externalLink
     ```
 
 ### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, click the link to your project.
 - In the address bar of your browser, copy the ending string after 'dirName=' and you will get something like 
 '/ysm-gpfs/.../Project_Ae4'
+- set the projectDir, targetDir, and netId: replace with your own settings    
     ```sh
-    netId=______
+    netId=myNetid
     projectDir=__paste here__
-    cd Downloads
+    targetDir=~/Downloads
+    ```
+- Download with rsync: paste the following lines
+    ```sh
+    cd $targetDir
     rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir .
     ```
 - Alternatively, if you do not have a farnam account:
+    - set the projectDir, targetDir: replace with your own settings
     ```sh
-    cd Downloads
-    wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/__paste here__
+    projectDir=__pastehere__
+    targetDir=~/Downloads
+    ```
+    - Download with wget: paste the following lines
+    ```sh
+    cd $targetDir
+    wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/$projectDir
     ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
