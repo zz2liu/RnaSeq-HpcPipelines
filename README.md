@@ -37,7 +37,8 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 Paste into the input box.
 - Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
-### Familiarize yourself with basic linux concepts and commands on the local terminal you just prepared.
+### OptionalButSuggested: Familiarize yourself with basic linux concepts and commands
+This might looks overwhelming if your never use linux, but it will payback. Set aside one hour to follow the tutorial to see how far you can go.
 - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
 - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
@@ -63,7 +64,7 @@ Paste into the input box.
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     source ~/.bashrc
     # list files and folders in your home directory
-    ls
+    ls -l
     ```
     You can exit by closing your terminal window.
 
@@ -79,7 +80,7 @@ Paste into the input box.
     ```sh
     tmux
     ```
-    We are using tmux for access to your working processes after you disconnect from the cluster. See my brief introduction to tmux in [FAQs](#faqs).
+    We are using tmux primarily to keep your working processes running after you disconnect from the cluster. For more 'advanced' usage like tabs and panes, see my brief introduction to tmux in [FAQs](#faqs).
 - To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
     ```sh
     srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
@@ -241,10 +242,10 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 ### Tmux: why to use and how?
 - Why whould i use tmux?
     - keep programs running after you disconnect (e.g. when working on a remote server via ssh)
-    - split your terminal into windows(tabs) and panes <br>
+    - split your terminal into windows(tabs) and panes (multple terminals within a window/tab) <br>
     ![windows and panes](https://www.ocf.berkeley.edu/~ckuehl/tmux/tmux-labels.png)
 
-- once in tmux, type ctrl-b then
+- Using tabs: once in tmux, type ctrl-b then
 
     |type a key  |to |
     |----:|-----|
@@ -252,7 +253,7 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
     |n / number     |select next/specific window |
     |x              |kill the current pane |
     
-- More advanced: to use panes (multple terminals within a window/tab)
+- More advanced: Using panes 
     
     |type ctrl-b, then | to |
     | ---: | --- |
