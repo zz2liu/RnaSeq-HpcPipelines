@@ -10,70 +10,123 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     babun update
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
-    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen <<< "
-    
-    " #to generate your ssh key pairs needed for login to the clusters.
-    chmod -R 600 ~/.ssh/id_rsa   #make your private key safe
     ```
-- Alternative unix terminals on windows:
+- Optional: Alternative unix terminals on windows:
     - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
     - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 
 ### for Mac OS X users
-- run terminal, then type the following lines (each line is a bash command, # is for comment)
+- run terminal, then paste the following lines (each line is a bash command, # is for comment)
     ```sh
-    # install Homebrew, the popular free package manager for OSX
+    # install Homebrew, the popular free package manager for OSX. It will take a few minutes.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
-    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  <<< "\n\n\n"     #to generate your ssh key pairs needed for login to the clusters.
     ```
-## 2. Request an account on a yale HPC cluster, and get preprared for the pipelines
-- Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-reque
-- check farnam, also check ruddle if you have sequenced on west campus/YCGA.
-- While waiting for your accounts, familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
+### Prepare your key to yale clusters
+- generate the key pair for your terminal: Paste the following lines (including the blank ones) to your terminal.
+    ```sh
+    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen <<< "
+    
+    " #to generate your ssh key pairs needed for login to the clusters.
+    chmod 600 ~/.ssh/id_rsa   #make your private key safe
+    cat ~/.ssh/id_rsa.pub  #print your public key to screen
+    ```
+- Then copy the lines from your terminal starting from 'ssh-rsa',
+- Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py)
+- And paste into the input box.
+- Note: your need to prepare/register a key for each computer from which to logon to the cluster.
+
+### Familiarize yourself with basic linux concepts and commands on the local terminal you just prepared. 
     - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
     - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-- After your account is approved, you'll receive an email with [a link to upload your public key](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py). 
-    - open your terminal,
-        ```sh
-        cat ~/.ssh/id_rsa.pub  #print your public key to screen
-        ```
-        Then copy the lines starting from 'ssh-rsa' and paste into the box. 
-- log into your account from your terminal, example 
+
+## 2. Request and prepare your account on a yale HPC cluster
+### Request an account 
+- Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-reque
+- check farnam, also check ruddle if you have sequenced on west campus/YCGA.
+- it might takes a few work days for your accounts to be approved.
+
+### First time logon and setup
+- After you got the approvement email from ITS, log into your account from your terminal, example 
     ```
     ssh mynetid@farnam.hpc.yale.edu
     ```
-  - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
-- after you log onto the cluster, type/paste the following lines for a one-time setup to your cluster account:
+    - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
+- After you log onto the cluster, paste the following lines for a one-time setup to your cluster account:
     ```sh
+    # add pipelines folder to your command searching path
     zl99=$(realpath ~/../zl99)
     echo 'export PATH="$zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
+    # make a tmux shortcut, and configure for mouse usage
     echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    # echo ".libPaths(c('$zl99/R/x86_64-pc-linux-gnu-library/3.2', .libPaths()))" >> ~/.Rprofile
     echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
+    source ~/.bashrc
+    # list files and folders in your home directory
+    ls
     ```
-    then exit by closing your terminal.
-- Then every time after log on, run tmux for access to your working processes. See my brief introduction to tmux in [FAQs](#faqs). 
-    ```tmux```
+    You can exit by closing your terminal window.
+
+- Note: In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
+
+## 3. Run RNA-Seq pipelines on a yale HPC cluster
+- Log onto the cluster from your local terminal, example:
+    ```sh
+    ssh mynetid@farnam.hpc.yale.edu
+    ```
+    Now, you are on your 'cluster terminal'
+- Run tmux 
+    ```sh
+    tmux
+    ```
+    We are using tmux for access to your working processes after you disconnect from the cluster. See my brief introduction to tmux in [FAQs](#faqs).
 - To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
-    ```
+    ```sh
     srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     ```
-- In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
 
-## 3. Fastq to Gene Count pipelines on a HPC cluster
+### Mapping: Bowtie2 local single-end mapping pipeline
+Generate a gene x sample read counts matrix for your project.
 
-### 3.1 Bowtie2 local single-end pipeline
-
-- Example/test usage for mapping and counting on Project level
+#### Test with the example project
+- paste the following lines to your remote terminal on a computing node
     ```sh
+    # set up the projectDir and genome
     projectDir="~/../zl99/project/Project_Test1M"
+    genome="hg38"
     # make a new folder in scratch60 for output, using your project name
     mkdir "~/scratch60/$(basename $projectDir)" && cd $_
-    # mapping using the hg38 genome
+    # map the reads to genome
     prepare_pipelines
-    bowtie2localSeBatch hg38 $projectDir  #set in the previous step
+    bowtie2localSeBatch $genome $projectDir  #set in the previous step
     ```
+    It will take a few minutes.
+- Check the output of the pipeline. Examples:
+    ```sh
+    ls -l
+    head geneCount.csv
+    ls -l */*.bam
+    ```
+    you can check the pipeline documents below for details.
+#### run your own project
+- Locate your sequence project folder as described in the [FAQs](#faqs), or upload a project folder with the same structure (each of the samples as a subfolder with fastq.gz files).
+- Set your projectDir and genome in the following format
+```sh
+# Attention: Replace with you own settings
+projectDir="/path/to/yourProjectDir"
+genome="genomeName"
+```
+- Then paste the following lines, as with the example
+    ```sh
+    # make a new folder in scratch60 for output, using your project name
+    mkdir "~/scratch60/$(basename $projectDir)" && cd $_
+    # map the reads to genome
+    prepare_pipelines
+    bowtie2localSeBatch $genome $projectDir  #set in the previous step
+    ```
+- Check the output, as with the example
+- Check the [FAQs](#faqs) if you want to download the results to your computer.
+
+#### Pipeline Document:
 - Usage: 
     `bowtie2localSeBatch <genome> <projectDir>`
 - Arguments:
@@ -86,25 +139,32 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     * sample output folders, each with: 
         - BAM file: the alignments.
         - bigwig file: the coverage at each base normalized to Counts Per Million Reads mapped (CPM).
-- To run your own project, locate your sequence project folder as described in the [FAQs](#faqs), and type after the `projectDir=` to replace the test project dir.
 
-### 3.2 STAR + transcriptome pipeline
-TBD.
+### Mapping: STAR + transcriptome mapping pipeline
+TBD. High priority
 Reference: [STAR](https://github.com/alexdobin/STAR).
 
-### 3.3 Tophat2 + transcriptome pipeline
-TBD.
+### Mapping: Tophat2 + transcriptome mapping pipeline
+TBD. Low priority.
 Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 
-## 4. Differential Gene Expression pipelines
-### 4.1 DESeq2 pipeline
-- Example/test usage
+### Diferential Expression: DESeq2 pipeline
+#### Example/test usage
     ```sh
-    cd ~/scratch60/Project_Test1M #cd to your output directory of the mapping pipeline
-    mkdir deseq2; cd $_
+    # set up mappingDir and contrasts
+    mappingDir=~/scratch60/Project_Test1M #output directory of the mapping pipeline
+    contrasts="A-Ctrl,B-Ctrl,B-A"
+    # run pipeline, output to a new folder ./deseq2
+    mkdir $mappingDir/deseq2; cd $_
     prepare_pipelines
-    deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv A-Ctrl,B-Ctrl,B-A
+    deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
     ```
+#### Run your project
+- set your mappingDir and contrasts as demonstrated in the example.
+- create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below)
+- run the pipeline the same as in example
+
+#### Pipeline Document
 - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
 - Arguments:
     - geneCountFile: a csv file with raw read counts of geneID x sampleName
@@ -120,8 +180,8 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
         
 Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/DESeq2.html).
 
-### 4.2 VoomLimma pipeline
-TBD.
+### Diferential Expression: VoomLimma diferential gene expression pipeline
+TBD. Low priority
 Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/limma.html).
 
 ## FAQs
