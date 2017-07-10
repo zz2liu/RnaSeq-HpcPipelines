@@ -32,9 +32,10 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     chmod 600 ~/.ssh/id_rsa   #make your private key safe
     cat ~/.ssh/id_rsa.pub  #print your public key to screen
     ```
-    Then copy the lines from your terminal starting from 'ssh-rsa'
+    Then copy the lines from your terminal starting from 'ssh-rsa', an example below:<br>
+    ![id_rsa.pub example](Selection_013.png)
 - Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py).<br>
-Paste into the input box.
+Paste into the input box, then click \<Make changes\>
 - Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
 ### OptionalButSuggested: Familiarize yourself with basic linux concepts and commands
