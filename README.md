@@ -38,7 +38,7 @@ Paste into the input box.
 - Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
 ### OptionalButSuggested: Familiarize yourself with basic linux concepts and commands
-This might looks overwhelming if your never use linux, but it will payback. Set aside one hour to follow the tutorial to see how far you can go.
+This might looks overwhelming if your never use linux terminal, but it is rewarding. Set aside one hour to follow the tutorial to see how far you can go, you might find yourself at the end of the tutorial before the hour run off.
 - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
 - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
