@@ -91,10 +91,7 @@ ls ~/Downloads
     echo 'export PATH="$zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
     # make a tmux shortcut, and configure for mouse usage
     echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
-    source ~/.bashrc
-    # list files and folders in your home directory
-    ls -l
+    #echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
     You can exit by closing your terminal window.
 
@@ -102,9 +99,9 @@ ls ~/Downloads
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto the cluster from your local terminal, example:
-    ```sh
-    ssh mynetid@farnam.hpc.yale.edu
-    ```
+    <pre>
+    ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
+    </pre>
     Now, you are on your 'cluster terminal'
 - Run tmux 
     ```sh
@@ -115,6 +112,12 @@ ls ~/Downloads
     ```sh
     srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     ```
+    Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours? 
+### Optional: Exercise with your basic linux commands
+- Transfer a bunch of files: rsync
+- View text file content: less
+- Edit a text file: nano
+- Like a pro: wild cards, redirection, pipes
 
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
