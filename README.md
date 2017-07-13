@@ -26,9 +26,10 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
 ### Prepare your key to yale clusters
 - generate the key pair for your terminal: Paste the following lines (including the blank ones) to your terminal.
     ```sh
-    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen <<< "
-    
-    " #to generate your ssh key pairs needed for login to the clusters.
+    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  #to generate your ssh key pairs needed for login to the clusters.
+    ```
+    You can enters to all the questions.
+    ```sh
     chmod 600 ~/.ssh/id_rsa   #make your private key safe
     cat ~/.ssh/id_rsa.pub  #print your public key to screen
     ```
@@ -59,14 +60,14 @@ cd /  #go to root
 ls -l
 cd ~  #go to home, or just type cd
 cd <ins>drag a folder from your file manager</ins> #go to a local folder
-cd -  #go back to the last directory
 </pre>
 - moving things around: mv, cp, mkdir
 <pre>
+cd
 mkdir RnaseqTutorial
 cd Rna<ins>click tab on yourkeyboard for autocompletion</ins>
-cp ~/.ssh/id_rsa.pub . #you can practice autocompletion here
-cd ..
+cp ~/.ssh/id_rsa.pub . #. is for current directory
+cd .. #.. is for parent directory
 mv RnaseqTutorial ~/Downloads
 ls ~/Downloads
 <ins>up arrow to last command, then type</ins>  | grep 'Rnaseq'  #| is call pipe, grep to filter lines
@@ -80,45 +81,49 @@ ls ~/Downloads
 
 ### First time logon and setup
 - After you got the approvement email from ITS, log into your account from your terminal, example 
-    ```
-    ssh mynetid@farnam.hpc.yale.edu
-    ```
-    - You can find more instructions for individual clusters [here](http://research.computing.yale.edu/support/hpc/clusters).
+    <pre>
+    ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
+    </pre>
+    Now, you are on your 'cluster terminal'
 - After you log onto the cluster, paste the following lines for a one-time setup to your cluster account:
     ```sh
     # add pipelines folder to your command searching path
     zl99=$(realpath ~/../zl99)
-    echo 'export PATH="$zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
+    echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
     # make a tmux shortcut, and configure for mouse usage
-    echo "alias tmux='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    #echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
+    echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
+#echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
     You can exit by closing your terminal window.
 
 - Note: In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
+### Optional: Exercise with your basic linux commands
+- Transfer a bunch of files: rsync
+```
+cd scratch60
+rsync -azuvP ~/../zl99/project/Project_Test1M .
+ls 
+```
+- View text file content: less
+- Edit a text file: nano
+- Like a pro: wild cards, redirection, pipes
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto the cluster from your local terminal, example:
     <pre>
     ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     </pre>
-    Now, you are on your 'cluster terminal'
 - Run tmux 
     ```sh
-    tmux
+    tmuxa
     ```
     We are using tmux primarily to keep your working processes running after you disconnect from the cluster. For more 'advanced' usage like tabs and panes, see my brief introduction to tmux in [FAQs](#faqs).
-- To run one of the pipelines, request an interactive computing node with 8 CPUs and 32Gb Memory:
+- To run one of the pipelines, request an interactive computing node with 8 CPUs, each with 4Gb Memory:
     ```sh
-    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
+    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash  #on ruddle
+    #srun --pty -c8 --mem-per-cpu=4000 bash  #on farnam
     ```
-    Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours? 
-### Optional: Exercise with your basic linux commands
-- Transfer a bunch of files: rsync
-- View text file content: less
-- Edit a text file: nano
-- Like a pro: wild cards, redirection, pipes
-
+    Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
 
