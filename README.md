@@ -43,7 +43,7 @@ This might looks overwhelming if your never use linux terminal, but it is reward
 - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
 - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
-Excercise with the very basic linux commands (program + options + arguments), type each command except the italized part and the comment (after #), followed by an enter.  do not copy/paste.
+Excercise with the very basic linux commands (program + options + arguments), type each command except the <span><ins>italized part</ins></span> (you should act on it) and the comment (after #), followed by an enter.  do not copy/paste.
 - list the folders and files: ls, man
 <pre>
 ls
