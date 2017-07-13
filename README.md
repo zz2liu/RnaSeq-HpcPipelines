@@ -43,6 +43,35 @@ This might looks overwhelming if your never use linux terminal, but it is reward
 - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
 - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
+Excercise with the very basic linux commands (program + options + arguments), type each command except the italized part and the comment (after #), followed by an enter.  do not copy/paste.
+- list the folders and files: ls, man
+<pre>
+ls
+ls -l #long form: filesize, last modified time
+ls -la #see the hidden: ., .., .ssh
+ls --help
+man ls #/ to search; arrows to navigate; q to quit
+</pre>
+- navigate in the tree: cd, pwd
+<pre>
+pwd  #find where you are
+cd /  #go to root
+ls -l
+cd ~  #go to home, or just type cd
+cd <ins>drag a folder from your file manager</ins> #go to a local folder
+cd -  #go back to the last directory
+</pre>
+- moving things around: mv, cp, mkdir
+<pre>
+mkdir RnaseqTutorial
+cd Rna<ins>click tab on yourkeyboard for autocompletion</ins>
+cp ~/.ssh/id_rsa.pub . #you can practice autocompletion here
+cd ..
+mv RnaseqTutorial ~/Downloads
+ls ~/Downloads
+<ins>up arrow to last command, then type</ins>  | grep 'Rnaseq'  #| is call pipe, grep to filter lines
+</pre>
+
 ## 2. Request and prepare your account on a yale HPC cluster
 ### Request an account 
 - Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-reque
