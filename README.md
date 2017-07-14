@@ -155,13 +155,13 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
 Generate a gene x sample read counts matrix for your project.
 
 #### Test with the example project
-- Set the parameters: paste the following lines to your cluster terminal on a computing node
+- Set the parameters: paste the following lines in a computing node
     ```sh
     # set up the projectDir and genome
     projectDir="~/../zl99/project/Project_Test1M"
     genome="hg38"
     ```
-- Run the pipeline, output to a new folder under scratch60: paste the folowing lines
+- Run the pipeline, output to a new folder under scratch60:
     ```sh
     # make a new folder in scratch60 for output, using your project name
     mkdir "~/scratch60/$(basename $projectDir)" && cd $_
@@ -185,16 +185,20 @@ Generate a gene x sample read counts matrix for your project.
 projectLink="<ins>pastehere</ins>"
 genome="<ins>type a genome version hg38 or mm10</ins>"
 </pre>
-- Paste the following lines, to find your projectDir
+- Then paste the following to set your projectDir and run the pipeline. It takes much longer, your might wait overnight.
 ```sh
 if [[ $HOSTNAME =~ 'ruddle' ]]; then
     projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
 else
     projectDir=${projectLink##*dirName=}
 fi
+# make a new folder in scratch60 for output, using your project name
+mkdir "~/scratch60/$(basename $projectDir)" && cd $_
+# map the reads to genome
+prepare_pipelines
+bowtie2localSeBatch $genome $projectDir
 ```
-- Then run the pipeline, paste the same lines as with the example. It takes much longer, your might wait overnight.
-- Tranfer the results to your computer: open *your local terminal* on your laptop (Babun for windows, terminal for OSX), then type the following
+- Tranfer the results to your computer: open **your local terminal on your laptop** (Babun for windows, terminal for OSX), then type the following
 <pre>
 cd "<ins>drag to here a folder from your file manager, you might want to use one from an external drive</ins>"
 rsync -azvuP <ins>yourNetid</ins>@<ins>farnam/ruddle</ins>.hpc.yale.edu:scratch60/<ins>yourProjectName</ins> .
