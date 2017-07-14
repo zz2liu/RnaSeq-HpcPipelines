@@ -84,14 +84,12 @@ ls ~/Downloads
     ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     </pre>
     Now, you are on your 'cluster terminal'
-- After you log onto the cluster, paste the following lines for a one-time setup to your cluster account:
+- After you log onto the cluster, paste the following lines:
     ```sh
     # add pipelines folder to your command searching path
-    zl99=$(realpath ~/../zl99)
     echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
-    # make a tmux shortcut, and configure for mouse usage
+    # make a tmux shortcut
     echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-#echo 'bind m set -g mouse \; display-message "Mouse on/off toggled."' >> ~/.tmux.conf
     ```
     You can exit by closing your terminal window.
 
@@ -99,13 +97,28 @@ ls ~/Downloads
 ### Optional: Exercise with your basic linux commands
 - Transfer a bunch of files: rsync
 ```
-cd scratch60
-rsync -azuvP ~/../zl99/project/Project_Test1M .
-ls 
+ls -l  # project: 4T for the lab; scratch60: 10T for the lab, automaticly deleted after 60 days
+cd ~/project
+rsync -azuvP /home/zl99/project/Project_Test1M .  #transfer all the Project_Test1M to current folder.
 ```
+Tip for rsync: -a for all files; -z for fast transferring; -u for transferring files only if they are updated or new; -v for verbose (display more info); -P for progress (display a percentage transferred).
 - View text file content: less
+```
+# continue from last block
+cd Project_Test1M
+ls * # * is wildcard representing anything
+ls */*R1_001.fastq.gz # list only the first file from each sample
+less Sample_10/10_002_CGATGT_L002_R1_001.fastq.gz
+```
+Tip for less: q to quit; arrows to navigate; / to search (then n to next match)
+
 - Edit a text file: nano
-- Like a pro: wild cards, redirection, pipes
+```
+# continue from last block
+echo Sample* > exNano.csv  #echo just print strings to the screen
+nano exNano.csv #try to add a comma and a group name (such as A,B) to each line
+```
+Tip for nano: ctrl-x to exit, then y followed enter to save.
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto the cluster from your local terminal, example:
