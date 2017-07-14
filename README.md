@@ -23,15 +23,14 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
     ```
-### Prepare your key to yale clusters
-- generate the key pair for your terminal: Paste the following lines (including the blank ones) to your terminal.
+### Prepare your key files to yale clusters
+- generate the key pair for your terminal: Paste to your terminal:
     ```sh
-    [[ -e ~/.ssh/id_rsa ]] || ssh-keygen  #to generate your ssh key pairs needed for login to the clusters.
-    ```
-    You can enters to all the questions.
-    ```sh
-    chmod 600 ~/.ssh/id_rsa   #make your private key safe
-    cat ~/.ssh/id_rsa.pub  #print your public key to screen
+    keyFile=~/.ssh/id_rsa
+    # generate a key pair if necessary
+    [[ -e $keyFile ]] || ssh-keygen -f $keyFile -t rsa -N ''
+    chmod 600 $keyFile  #make your private key safe
+    cat $keyFile.pub  #print your public key to screen
     ```
     Then copy the lines from your terminal starting from 'ssh-rsa', an example below:<br>
     ![id_rsa.pub example](Selection_013.png)
