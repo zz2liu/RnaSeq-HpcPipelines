@@ -86,10 +86,10 @@ ls ~/Downloads
 
 ### First time logon and setup
 - After you got the approvement email from ITS, log into your account from your terminal, example 
-    <pre>
-    ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
-    </pre>
-    Now, you are on your 'cluster terminal'
+<pre>
+ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
+</pre>
+
 - After you log onto the cluster, paste the following lines:
     ```sh
     # add pipelines folder to your command searching path
@@ -145,7 +145,7 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     ```sh
     srun --pty -c8 --mem-per-cpu=4000 bash
     ```
-    - on ruddel:
+    - on ruddle:
     ```sh
     srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     ```
@@ -179,7 +179,22 @@ Generate a gene x sample read counts matrix for your project.
     you can check the pipeline documents below for details.
     
 #### Run your own project
-- Locate your sequence project folder as described in the [FAQs](#faqs), or upload a project folder with the same structure (each of the samples as a subfolder with fastq.gz files).
+- Follow link provided by the sequencing center, copy the link address of your project. Example:
+![copy the link to your sequence project](copy-seq-project-link.png), Then type
+<pre>
+projectLink="<ins>pastehere</ins>"
+genome="<ins>type a genome version hg38 or mm10</ins>"
+</pre>
+- Paste the following lines, to find your projectDir
+```sh
+if [[ $HOSTNAME =~ 'ruddle' ]]; then
+    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
+else
+    projectDir=${projectLink##*dirName=}
+fi
+```
+</pre>
+- or upload a project folder with the same structure (each of the samples as a subfolder with fastq.gz files).
 - Set your projectDir and genome as demonstrated in the example, replacing with your own settings after the `=`
 - Then run the pipeline, paste the same lines as with the example. It takes much longer, your might wait overnight.
 - Check the output, as with the example
