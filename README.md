@@ -164,7 +164,8 @@ Generate a gene x sample read counts matrix for your project.
 - Run the pipeline, output to a new folder under scratch60:
     ```sh
     # make a new folder in scratch60 for output, using your project name
-    mkdir "~/scratch60/$(basename $projectDir)" && cd $_
+    outDir="~/scratch60/$(basename $projectDir).bowtie2"
+    mkdir $outDir && cd $outDir
     # map the reads to genome
     prepare_pipelines
     bowtie2localSeBatch $genome $projectDir  #set in the previous step
@@ -193,15 +194,21 @@ else
     projectDir=${projectLink##*dirName=}
 fi
 # make a new folder in scratch60 for output, using your project name
-mkdir "~/scratch60/$(basename $projectDir)" && cd $_
+mkdir "~/scratch60/$(basename $projectDir).bowtie2" && cd $_
 # map the reads to genome
 prepare_pipelines
 bowtie2localSeBatch $genome $projectDir
 ```
-- Tranfer the results to your computer: open **your local terminal on your laptop** (Babun for windows, terminal for OSX), then type the following
+- Tranfer the results to your computer: 
+    - construct the rsync command on the cluster terminal:
+   ```sh
+   tmp=$USER@${HOSTNAME%%[0-9].*}.hpc.yale.edu
+   echo "rsync -azvuP $tmp:$outDir ."
+   ```
+    - open **your local terminal on your laptop** (Babun for windows, terminal for OSX), then type the following
 <pre>
 cd "<ins>drag to here a folder from your file manager, you might want to use one from an external drive</ins>"
-rsync -azvuP <ins>yourNetid</ins>@<ins>farnam/ruddle</ins>.hpc.yale.edu:scratch60/<ins>yourProjectName</ins> .
+<ins>paste your rsync command</ins>
 </pre>
 
 #### Pipeline Document:
