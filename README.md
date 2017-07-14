@@ -1,5 +1,12 @@
 # RnaSeq-HpcPipelines
-RNA-Seq Pipelines live on Yale HPC **clusters**.
+RNA-Seq Pipelines live on Yale HPC clusters. <br>
+**Note about the `code block`s in this tutorial**:
+- Each line is a bash command: program + options + arguments
+- Anything after a `#` is a comment
+- For most of the blocks, you can just copy and paste everything to your terminal, then type enter.
+- The <span><ins>underlined part in a block<ins></span> need your action instead of just copy and paste. 
+- You can type ctrl-c to cancel the execution of a command.
+
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### For Windows users
 - download and install [babun](http://babun.github.io/), a free cygwin based linux emulator.  Extract and run the install.bat file, it will take a few minutes. 
@@ -10,21 +17,20 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     babun shell /bin/bash        #set bash as default shell
     ln -s $HOMEPATH/Downloads .  #make a shortcut of your Downloads folder
     ```
-    Note: Each line is a bash command, # is for comment
 - Optional: Alternative unix terminals on windows:
     - Mobaxterm is another option which should suffice this tutorial.  You can download a free and portable (no installation needed) version [here](http://mobaxterm.mobatek.net/download-home-edition.html).
     - windows 10 users have another option to use 'subsystem for linux', [see here](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/).
 
 ### For Mac OS X users
 - Search and run terminal (you might want to pin it to your dock)
-- Paste the following lines (each line is a bash command, # is for comment)
+- Optional: Paste the following lines
     ```sh
     # install Homebrew, the popular free package manager for OSX. It will take a few minutes.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     brew install wget    #wget will be used later for downloading your RnaSeq data.
     ```
 ### Prepare your key files to yale clusters
-- generate the key pair for your terminal: Paste to your terminal:
+- generate the key pair for your terminal:
     ```sh
     keyFile=~/.ssh/id_rsa
     # generate a key pair if necessary
@@ -34,17 +40,17 @@ RNA-Seq Pipelines live on Yale HPC **clusters**.
     ```
     Then copy the lines from your terminal starting from 'ssh-rsa', an example below:<br>
     ![id_rsa.pub example](Selection_013.png)
-- Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py).<br>
-Paste into the input box, then click \<Make changes\>
-- Note: your need to prepare/register a key for each computer from which to logon to the cluster.
+- Follow the link to [register your public key to yale HPC clusters](http://gold.hpc.yale.internal/cgi-bin/sshkeys.py), then
+    - Paste into the input box, then click \<Make changes\>
+Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
-### OptionalButSuggested: Familiarize yourself with basic linux concepts and commands
+### Optional: Familiarize yourself with basic linux concepts and commands
 This might looks overwhelming if your never use linux terminal, but it is rewarding. Set aside one hour to follow the tutorial to see how far you can go, you might find yourself at the end of the tutorial before the hour run off.
 - [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
 - [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
 
-Excercise with the very basic linux commands (program + options + arguments), type each command except the <span><ins>italized part</ins></span> (you should act on it) and the comment (after #), followed by an enter.  do not copy/paste.
-- list the folders and files: ls, man
+Excercise with the very basic linux commands (program + options + arguments), type each command except the <span><ins>italized part</ins></span> (you should act on it) and the comment (after #), followed by an enter.
+- list the folders and files: ls
 <pre>
 ls
 ls -l #long form: filesize, last modified time
@@ -52,7 +58,7 @@ ls -la #see the hidden: ., .., .ssh
 ls --help
 man ls #/ to search; arrows to navigate; q to quit
 </pre>
-- navigate in the tree: cd, pwd
+- navigate in the tree: cd
 <pre>
 pwd  #find where you are
 cd /  #go to root
@@ -69,7 +75,7 @@ cp ~/.ssh/id_rsa.pub . #. is for current directory
 cd .. #.. is for parent directory
 mv RnaseqTutorial ~/Downloads
 ls ~/Downloads
-<ins>up arrow to last command, then type</ins>  | grep 'Rnaseq'  #| is call pipe, grep to filter lines
+<ins>up arrow to last command, then continue to type</ins>  | grep 'Rnaseq'  #| is call pipe, grep to filter lines
 </pre>
 
 ## 2. Request and prepare your account on a yale HPC cluster
@@ -90,20 +96,24 @@ ls ~/Downloads
     echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
     # make a tmux shortcut
     echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
+    ls -l
     ```
-    You can exit by closing your terminal window.
+    You can then exit by closing your terminal window or type `exit`.
 
-- Note: In the following examples, all the results are stored under your scratch60 folder, which be automatically deleted after 60 days. See [FAQs](#faqs) to find how to backup/synchronize to your computer.
+Note for the HPC folders: 
+    - project: 4T for the lab
+    - scratch60: 10T for the lab, files stored here will be automaticly deleted after 60 days
+    - In the following examples, most of results are stored under your scratch60 folder. See [FAQs](#faqs) to find how to backup/synchronize to your computer using `rsync`.
+    
 ### Optional: Exercise with your basic linux commands
 - Transfer a bunch of files: rsync
-```
-ls -l  # project: 4T for the lab; scratch60: 10T for the lab, automaticly deleted after 60 days
+```sh
 cd ~/project
 rsync -azuvP /home/zl99/project/Project_Test1M .  #transfer all the Project_Test1M to current folder.
 ```
 Tip for rsync: -a for all files; -z for fast transferring; -u for transferring files only if they are updated or new; -v for verbose (display more info); -P for progress (display a percentage transferred).
 - View text file content: less
-```
+```sh
 # continue from last block
 cd Project_Test1M
 ls * # * is wildcard representing anything
@@ -113,7 +123,7 @@ less Sample_10/10_002_CGATGT_L002_R1_001.fastq.gz
 Tip for less: q to quit; arrows to navigate; / to search (then n to next match)
 
 - Edit a text file: nano
-```
+```sh
 # continue from last block
 echo Sample* > exNano.csv  #echo just print strings to the screen
 nano exNano.csv #try to add a comma and a group name (such as A,B) to each line
@@ -122,20 +132,25 @@ Tip for nano: ctrl-x to exit, then y followed enter to save.
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto the cluster from your local terminal, example:
-    <pre>
-    ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
-    </pre>
-- Run tmux 
+<pre>
+ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
+</pre>
+- Run tmux: 
     ```sh
     tmuxa
     ```
-    We are using tmux primarily to keep your working processes running after you disconnect from the cluster. For more 'advanced' usage like tabs and panes, see my brief introduction to tmux in [FAQs](#faqs).
+    Note: We are using tmux primarily to keep your working processes running after you disconnect from the cluster. To detach from tmuxa, type ctrl-b then d. For more 'advanced' usage like tabs and panes, see my brief introduction to tmux in [FAQs](#faqs).
 - To run one of the pipelines, request an interactive computing node with 8 CPUs, each with 4Gb Memory:
+    - on farnam:
     ```sh
-    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash  #on ruddle
-    #srun --pty -c8 --mem-per-cpu=4000 bash  #on farnam
+    srun --pty -c8 --mem-per-cpu=4000 bash
+    ```
+    - on ruddel:
+    ```sh
+    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     ```
     Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
+
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
 
@@ -155,10 +170,10 @@ Generate a gene x sample read counts matrix for your project.
     bowtie2localSeBatch $genome $projectDir  #set in the previous step
     ```
     It will take a few minutes.
-- Check the output of the pipeline. Examples:
+- Optional: check the output of the pipeline. Examples:
     ```sh
     ls -l
-    head geneCount.csv
+    less geneCount.csv #q to quit
     ls -l */*.bam
     ```
     you can check the pipeline documents below for details.
@@ -254,18 +269,21 @@ You can use rsync, comes with the terminal on your computer. For example:
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
-- Follow the download link provided in their email, copy the link address of your project. 
+- Follow the download link provided in their email, copy the link address of your project. Example:
+![copy the link to your sequence project](copy-seq-project-link.png)
+
 - set the projectLink, netId, targetDir on your local terminal
-    ```sh
-    projectLink=__pastehere__
-    targetDir=~/Downloads #the local folder to download to
-    netId=myNetid
-    ```
+<pre>
+projectLink="<ins>pastehere</ins>"
+targetDir="<ins>type or drag a folder on your computer, can be an external hard drive</ins>"
+netId=<ins>type your netid</ins>
+</pre>
 - Download with rsync
     ```sh
     projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
     rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
     ```
+<!--
 - Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
     - set the externalLink and targetDir: replace with your settings
         ```sh
@@ -275,22 +293,17 @@ You can use rsync, comes with the terminal on your computer. For example:
     - Download with wget: paste the following
         ```sh
         cd $targetDir
-        wget -e robots=off -r --accept *.fastq.gz $externalLink
-        ```
-
+        wget -e robots=off -r --accept *.fastq.gz $externalLink       ```
+-->
 ### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
 - follow the download link provided in their email, copy the link address of your project.
-- set the projectLink, targetDir, and netId: replace with your own settings    
-    ```sh
-    projectLink=__paste here__
-    targetDir=~/Downloads
-    netId=myNetid
-    ```
+- set the projectLink, targetDir, and netId, as shown in the section above    
 - Download with rsync: paste the following lines
     ```sh
     projectDir=${projectLink##*dirName=}
     rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
     ```
+<!--
 - Alternatively, if you do not have a farnam account:
     - set the projectLink, targetDir as above
     - Download with wget: paste the following lines
@@ -298,7 +311,8 @@ You can use rsync, comes with the terminal on your computer. For example:
     projectDir=${projectLink##*dirName=}
     cd $targetDir
     wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/$projectDir
-    ```
+```
+-->   
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
