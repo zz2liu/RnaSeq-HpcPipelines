@@ -193,12 +193,12 @@ else
     projectDir=${projectLink##*dirName=}
 fi
 ```
-</pre>
-- or upload a project folder with the same structure (each of the samples as a subfolder with fastq.gz files).
-- Set your projectDir and genome as demonstrated in the example, replacing with your own settings after the `=`
 - Then run the pipeline, paste the same lines as with the example. It takes much longer, your might wait overnight.
-- Check the output, as with the example
-- Check the [FAQs](#faqs) if you want to download the results to your computer.
+- Tranfer the results to your computer: open *your local terminal* on your laptop (Babun for windows, terminal for OSX), then type the following
+<pre>
+cd "<ins>drag to here a folder from your file manager, you might want to use one from an external drive</ins>"
+rsync -azvuP <ins>yourNetid</ins>@<ins>farnam/ruddle</ins>.hpc.yale.edu:scratch60/<ins>yourProjectName</ins> .
+</pre>
 
 #### Pipeline Document:
 - Usage: 
