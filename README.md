@@ -94,6 +94,7 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     ```sh
     # add pipelines folder to your command searching path
     echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
+    echo "alias prepare_pipelines='source /home/zl99/code/ngs/pipelines/prepare_pipelines.sh'" >> ~/.bashrc
     # make a tmux shortcut
     echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
     ls -l
@@ -150,7 +151,10 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
     ```
     Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
-
+- Then on your computing node, prepare the dependicies of the pipelines
+    ```sh
+    prepare_pipelines
+    ```
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
 
@@ -158,7 +162,8 @@ Generate a gene x sample read counts matrix for your project.
 - Set the parameters: paste the following lines in a computing node
     ```sh
     # set up the projectDir and genome
-    projectDir="~/../zl99/project/Project_Test1M"
+    zl99=$(realpath ~/../zl99)
+    projectDir="$zl99/project/Project_Test1M"
     genome="hg38"
     ```
 - Run the pipeline, output to a new folder under scratch60:
@@ -167,7 +172,6 @@ Generate a gene x sample read counts matrix for your project.
     outDir="~/scratch60/$(basename $projectDir).bowtie2"
     mkdir $outDir && cd $outDir
     # map the reads to genome
-    prepare_pipelines
     bowtie2localSeBatch $genome $projectDir  #set in the previous step
     ```
     It will take a few minutes.
@@ -196,7 +200,6 @@ fi
 # make a new folder in scratch60 for output, using your project name
 mkdir "~/scratch60/$(basename $projectDir).bowtie2" && cd $_
 # map the reads to genome
-prepare_pipelines
 bowtie2localSeBatch $genome $projectDir
 ```
 - Tranfer the results to your computer: 
