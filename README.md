@@ -9,7 +9,7 @@ RNA-Seq Pipelines live on Yale HPC clusters. <br>
 
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### For Windows users
-- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator.  Extract and run the install.bat file, it will take a few minutes. 
+- download and install [babun](http://babun.github.io/), a free cygwin based linux emulator.  Extract and run the install.bat file, it will take a few minutes to finish. 
 - And at last you will be at the terminal! You might want to pin it to the task bar (or search and run babun.bat later).
 - Paste the following lines into your terminal (Babun Tip: mouse select text to copy, mouse right click to paste)
     ```sh
@@ -56,8 +56,10 @@ ls
 ls -l #long form: filesize, last modified time
 ls -la #see the hidden: ., .., .ssh
 ls --help
-man ls #/ to search; arrows to navigate; q to quit
+man ls
 </pre>
+Tip of man: / to search; arrows to navigate; q to quit
+
 - navigate in the tree: cd
 <pre>
 pwd  #find where you are
@@ -66,7 +68,8 @@ ls -l
 cd ~  #go to home, or just type cd
 cd <ins>drag a folder from your file manager</ins> #go to a local folder
 </pre>
-- moving things around: mv, cp, mkdir
+
+- moving things around: mkdir, mv, cp
 <pre>
 cd
 mkdir RnaseqTutorial
@@ -74,9 +77,9 @@ cd Rna<ins>click tab on yourkeyboard for autocompletion</ins>
 cp ~/.ssh/id_rsa.pub . #. is for current directory
 cd .. #.. is for parent directory
 mv RnaseqTutorial ~/Downloads
-ls ~/Downloads
-<ins>up arrow to last command, then continue to type</ins>  | grep 'Rnaseq'  #| is call pipe, grep to filter lines
+ls ~/Downloads | less  # | is called pipe. less is file viewer 
 </pre>
+Tip of less: / to search; arrows to navigate; q to quit
 
 ## 2. Request and prepare your account on a yale HPC cluster
 ### Request an account 
@@ -112,6 +115,7 @@ cd ~/project
 rsync -azuvP /home/zl99/project/Project_Test1M .  #transfer all the Project_Test1M to current folder.
 ```
 Tip for rsync: -a for all files; -z for fast transferring; -u for transferring files only if they are updated or new; -v for verbose (display more info); -P for progress (display a percentage transferred).
+
 - View text file content: less
 ```sh
 # continue from last block
@@ -120,7 +124,7 @@ ls * # * is wildcard representing anything
 ls */*R1_001.fastq.gz # list only the first file from each sample
 less Sample_10/10_002_CGATGT_L002_R1_001.fastq.gz
 ```
-Tip for less: q to quit; arrows to navigate; / to search (then n to next match)
+Tip for less: q to quit; arrows to navigate; /,n to search,repeat
 
 - Edit a text file: nano
 ```sh
@@ -128,7 +132,7 @@ Tip for less: q to quit; arrows to navigate; / to search (then n to next match)
 echo Sample* > exNano.csv  #echo just print strings to the screen
 nano exNano.csv #try to add a comma and a group name (such as A,B) to each line
 ```
-Tip for nano: ctrl-x to exit, then y followed enter to save.
+Tip for nano: ctrl-x,y to save and exit. ctrl-w,alt-w: to search,repeat.
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto a specific head node from your local terminal, example:
@@ -239,28 +243,33 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     ```sh
     # set up mappingDir and contrasts
     mappingDir="~/scratch60/Project_Test1M.bowtie2" #output directory of the mapping pipeline
-    contrasts="A-Ctrl,B-Ctrl,B-A"
+    contrasts="KD-Ctrl" #example of multiple contrasts: constrasts="A-Ctrl,B-Ctrl"
     ```
 - Run pipeline, output to a new folder under your mappingFolder
     ```sh
     # run pipeline, output to a new folder ./deseq2
     mkdir $mappingDir/deseq2; cd $_
-    prepare_pipelines
     deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
     ```
 #### Run your project
 - Set your mappingDir and contrasts as demonstrated in the example, replacing with your own setting after the `=`
-- Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below)
+- Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below): for example
+    ```sh
+    cd $mappingDir
+    ls -d Sample* > sampleInfo.csv
+    nano sampleInfo.csv
+    ```
+    Insert one line before the first; add a ,groupName to the end of each line. Then ctrl-x, y, enter. See an example file [here](sampleInfoExample.csv).
+
 - Run the pipeline the same as in example
-- Check the [FAQs](#faqs) if you want to download the results to your computer.
+- Download the results to your computer, as demonstrated in the mapping pipeline.
 
 #### Pipeline Document
 - Usage: `deseq2ContrastBatch <geneCountFile> <sampleInfoFile> <contrast1>[,<contrast2>[,...]]`
 - Arguments:
     - geneCountFile: a csv file with raw read counts of geneID x sampleName
-    - sampleInfoFile: a csv file with sample info. The first three columns are required.
+    - sampleInfoFile: a csv file with sample info. The first two columns are required, and the first row will be ignored.
         - sampleName should match that of geneCountFile
-        - sampleShortName will be used in plots
         - sampleGroup will be used in a comparision/contrast.
     - a contrast: a comparison between two 'sampleGroup's in the format of groupNumerator-groupDenominator
 - Output: write to the current directory
