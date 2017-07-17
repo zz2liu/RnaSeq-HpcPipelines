@@ -185,14 +185,15 @@ Generate a gene x sample read counts matrix for your project.
 <pre>
 projectLink="<ins>pastehere</ins>"
 genome="<ins>type a genome version hg38 or mm10</ins>"
+# extract the projectDir from the link address
+if [[ $HOSTNAME =~ 'ruddle' ]]; then
+    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
+else
+    projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
+fi
 </pre>
-- Then paste the following to set your projectDir and run the pipeline. It takes much longer, your might wait overnight.
+- Then paste the following to run the pipeline. It takes much longer, your might wait overnight.
     ```sh
-    if [[ $HOSTNAME =~ 'ruddle' ]]; then
-        projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
-    else
-        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
-    fi
     # make a new folder in scratch60, cd there and do the mapping
     outDir="$HOME/scratch60/$(basename $projectDir).bowtie2"
     mkdir $outDir && cd $outDir && bowtie2localSeBatch $genome $projectDir
