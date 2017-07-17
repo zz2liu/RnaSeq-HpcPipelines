@@ -168,12 +168,10 @@ Generate a gene x sample read counts matrix for your project.
     ```
 - Run the pipeline, output to a new folder under scratch60:
     ```sh
-    # make a new folder in scratch60 for output, using your project name
+    # make a new folder in scratch60, cd there and do the mapping
     outDir="$HOME/scratch60/$(basename $projectDir).bowtie2"
-    mkdir $outDir && cd $outDir \
-    # map the reads to genome
-    && bowtie2localSeBatch $genome $projectDir
-```
+    mkdir $outDir && cd $outDir && bowtie2localSeBatch $genome $projectDir
+    ```
     It will take a few minutes.
 - Optional: check the output of the pipeline. Examples:
     ```sh
@@ -191,23 +189,23 @@ projectLink="<ins>pastehere</ins>"
 genome="<ins>type a genome version hg38 or mm10</ins>"
 </pre>
 - Then paste the following to set your projectDir and run the pipeline. It takes much longer, your might wait overnight.
-```sh
-if [[ $HOSTNAME =~ 'ruddle' ]]; then
-    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
-else
-    projectDir=${projectLink##*dirName=}
-fi
-# make a new folder in scratch60 for output, using your project name
-mkdir "~/scratch60/$(basename $projectDir).bowtie2" && cd $_
-# map the reads to genome
-bowtie2localSeBatch $genome $projectDir
-```
+    ```sh
+    if [[ $HOSTNAME =~ 'ruddle' ]]; then
+        projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
+    else
+        projectDir=${projectLink##*dirName=}
+    fi
+        # make a new folder in scratch60, cd there and do the mapping
+    outDir="$HOME/scratch60/$(basename $projectDir).bowtie2"
+    mkdir $outDir && cd $outDir && bowtie2localSeBatch $genome $projectDir
+    ```
 - Tranfer the results to your computer: 
-    - construct the rsync command on the cluster terminal:
+    - construct the rsync command on the cluster terminal: paster the following lines and copy the output:
    ```sh
    tmp=$USER@${HOSTNAME%%[0-9].*}.hpc.yale.edu
    echo "rsync -azvuP $tmp:$outDir ."
    ```
+   Tip: to figure out the size of the outDir, type `cd $outDir; du -hs`.
     - open **your local terminal on your laptop** (Babun for windows, terminal for OSX), then type the following
 <pre>
 cd "<ins>drag to here a folder from your file manager, you might want to use one from an external drive</ins>"
