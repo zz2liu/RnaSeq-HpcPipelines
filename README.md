@@ -294,51 +294,28 @@ You can use rsync, comes with the terminal on your computer. For example:
     ```
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
-### How to bulk download you sequence files (fastq.gz) from west campus (on ruddle)
+### How to bulk download raw sequencing data from West campus or Yale Stem Cell Center?
+- Get an account on farnam and/or ruddle. See [Request an account](request_an_account).
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
-
-- set the projectLink, netId, targetDir on your local terminal
+    - An example from YCGA: http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/170407_D00596R_0191_BCAUWMANXX/Data/Intensities/BaseCalls/Unaligned/Project_Djd47&dirName=gpfs_illumina/sequencerS/runs/170407_D00596R_0191_BCAUWMANXX/Data/Intensities/BaseCalls/Unaligned/Project_Ddd
+    - An example from YSC: http://futo.cs.yale.edu:16023/genRFLForm.rpy?fullPath=/ysm-gpfs/pi/haifan_lin/sequencers/runs/170330_SN832_0297_BC9A4YACXX/Data/Intensities/BaseCalls/UnalignedL2/Project_Gale_ChMo_D_pool1&dirName=Project_GG
+- set the projectLink, targetDir, and netId on your local terminal
 <pre>
 projectLink="<ins>pastehere</ins>"
 targetDir="<ins>type or drag a folder on your computer, can be an external hard drive</ins>"
 netId=<ins>type your netid</ins>
 </pre>
-- Download with rsync
-    ```sh
-    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
-    rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
-    ```
-<!--
-- Alternatively, if you do not have an account on ruddle. Email to ask for an external link, copy the link address, then
-    - set the externalLink and targetDir: replace with your settings
-        ```sh
-        externalLink=__pastehere__
-        targetDir=~/Downloads
-        ```
-    - Download with wget: paste the following
-        ```sh
-        cd $targetDir
-        wget -e robots=off -r --accept *.fastq.gz $externalLink       ```
--->
-### How to bulk download sequence files (fastq) from Yale Stem Cell Center (on farnam)
-- follow the download link provided in their email, copy the link address of your project.
-- set the projectLink, targetDir, and netId, as shown in the section above    
 - Download with rsync: paste the following lines
     ```sh
-    projectDir=${projectLink##*dirName=}
-    rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
+    if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
+        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
+        rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
+    else  #from ruddle
+        projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
+        rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
+    fi
     ```
-<!--
-- Alternatively, if you do not have a farnam account:
-    - set the projectLink, targetDir as above
-    - Download with wget: paste the following lines
-    ```sh
-    projectDir=${projectLink##*dirName=}
-    cd $targetDir
-    wget -e robots=off -r --accept *.fastq.gz http://futo.cs.yale.edu:16023/$projectDir
-```
--->   
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
