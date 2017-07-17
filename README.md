@@ -287,11 +287,11 @@ Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/l
 ### How to synchronize files with the cluster?
 You can use rsync, comes with the terminal on your computer. For example:
 - set your remoteDir, localDir to synchronize
-<pre>
-remoteDir="<ins>yourNetid@farnam.hpc.yale.edu:scratch60</ins>"
-localDir="<ins>~/scratch60</ins>"
-</pre>
-    - Tip: you may drag your folder from your file explorer to the terminal to set the localDir.
+    <pre>
+    remoteDir="<ins>yourNetid@farnam.hpc.yale.edu:scratch60</ins>"
+    localDir="<ins>~/scratch60</ins>"
+    </pre>
+    Tip: you may drag your folder from your file explorer to the terminal to set the localDir.
 - backup every file and subfolder from your remoteDir (source) to your localDir (target)
     ```sh
     rsync -azvuP $remoteDir/ $localDir # with /, transfer everything under the source dir.
