@@ -169,11 +169,11 @@ Generate a gene x sample read counts matrix for your project.
 - Run the pipeline, output to a new folder under scratch60:
     ```sh
     # make a new folder in scratch60 for output, using your project name
-    outDir="~/scratch60/$(basename $projectDir).bowtie2"
-    mkdir $outDir && cd $outDir
+    outDir="$HOME/scratch60/$(basename $projectDir).bowtie2"
+    mkdir $outDir && cd $outDir \
     # map the reads to genome
-    bowtie2localSeBatch $genome $projectDir  #set in the previous step
-    ```
+    && bowtie2localSeBatch $genome $projectDir
+```
     It will take a few minutes.
 - Optional: check the output of the pipeline. Examples:
     ```sh
@@ -241,7 +241,7 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 - Set the parameters: paste the following lines to your cluster terminal on a computing node
     ```sh
     # set up mappingDir and contrasts
-    mappingDir="~/scratch60/Project_Test1M" #output directory of the mapping pipeline
+    mappingDir="~/scratch60/Project_Test1M.bowtie2" #output directory of the mapping pipeline
     contrasts="A-Ctrl,B-Ctrl,B-A"
     ```
 - Run pipeline, output to a new folder under your mappingFolder
