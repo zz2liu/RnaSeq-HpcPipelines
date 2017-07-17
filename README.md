@@ -97,7 +97,6 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     echo "alias prepare_pipelines='source /home/zl99/code/ngs/pipelines/prepare_pipelines.sh'" >> ~/.bashrc
     # make a tmux shortcut
     echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
-    ls -l
     ```
     You can then exit by closing your terminal window or type `exit`.
 
@@ -132,9 +131,9 @@ nano exNano.csv #try to add a comma and a group name (such as A,B) to each line
 Tip for nano: ctrl-x to exit, then y followed enter to save.
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
-- Log onto the cluster from your local terminal, example:
+- Log onto a specific head node from your local terminal, example:
 <pre>
-ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
+ssh <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
 </pre>
 - Run tmux: 
     ```sh
@@ -162,8 +161,7 @@ Generate a gene x sample read counts matrix for your project.
 - Set the parameters: paste the following lines in a computing node
     ```sh
     # set up the projectDir and genome
-    zl99=$(realpath ~/../zl99)
-    projectDir="$zl99/project/Project_Test1M"
+    projectDir="/home/zl99/project/Project_Test1M"
     genome="hg38"
     ```
 - Run the pipeline, output to a new folder under scratch60:
@@ -193,9 +191,9 @@ genome="<ins>type a genome version hg38 or mm10</ins>"
     if [[ $HOSTNAME =~ 'ruddle' ]]; then
         projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
     else
-        projectDir=${projectLink##*dirName=}
+        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
     fi
-        # make a new folder in scratch60, cd there and do the mapping
+    # make a new folder in scratch60, cd there and do the mapping
     outDir="$HOME/scratch60/$(basename $projectDir).bowtie2"
     mkdir $outDir && cd $outDir && bowtie2localSeBatch $genome $projectDir
     ```
