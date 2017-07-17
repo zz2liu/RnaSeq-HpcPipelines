@@ -303,8 +303,8 @@ You can use rsync, comes with the terminal on your computer. For example:
     ```
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
-### How to bulk download raw sequencing data from West campus or Yale Stem Cell Center?
-- Get an account on farnam and/or ruddle. See [Request an account](request_an_account).
+### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
+- Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](request_an_account).
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
     - An example from YCGA: `http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/.../Data/Intensities/BaseCalls/Unaligned/Project_xxx&dirName=...`
