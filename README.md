@@ -298,8 +298,8 @@ You can use rsync, comes with the terminal on your computer. For example:
 - Get an account on farnam and/or ruddle. See [Request an account](request_an_account).
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
-    - An example from YCGA: http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/170407_D00596R_0191_BCAUWMANXX/Data/Intensities/BaseCalls/Unaligned/Project_Djd47&dirName=gpfs_illumina/sequencerS/runs/170407_D00596R_0191_BCAUWMANXX/Data/Intensities/BaseCalls/Unaligned/Project_Ddd
-    - An example from YSC: http://futo.cs.yale.edu:16023/genRFLForm.rpy?fullPath=/ysm-gpfs/pi/haifan_lin/sequencers/runs/170330_SN832_0297_BC9A4YACXX/Data/Intensities/BaseCalls/UnalignedL2/Project_Gale_ChMo_D_pool1&dirName=Project_GG
+    - An example from YCGA: `http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/.../Data/Intensities/BaseCalls/Unaligned/Project_xxx&dirName=...`
+    - An example from YSC: `http://futo.cs.yale.edu:16023/genRFLForm.rpy?fullPath=/ysm-gpfs/pi/haifan_lin/.../Project_xxx&dirName=Project_xxx`
 - set the projectLink, targetDir, and netId on your local terminal
 <pre>
 projectLink="<ins>pastehere</ins>"
@@ -312,7 +312,7 @@ netId=<ins>type your netid</ins>
         projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
         rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
     else  #from ruddle
-        projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
+        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/; s%gpfs_illumina%/sequencers/illumina%')
         rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
     fi
     ```
