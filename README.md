@@ -259,7 +259,7 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     ls -d Sample* > sampleInfo.csv
     nano sampleInfo.csv
     ```
-    Insert one line before the first; add a ,groupName to the end of each line. Then ctrl-x, y, enter. See an example file [here](sampleInfoExample.csv).
+    Insert one line before the first; add a ,groupName to the end of each line. Then ctrl-x, y, enter. See an example file [here](edit/master/sampleInfoExample.csv).
 
 - Run the pipeline the same as in example
 - Download the results to your computer, as demonstrated in the mapping pipeline.
