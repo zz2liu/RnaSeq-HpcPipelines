@@ -297,7 +297,7 @@ localDir="<ins>~/scratch60</ins>"</pre>
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
-- Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](request_an_account).
+- Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](#request_an_account).
 - Prepare the unix termial on your computer. See [Prepare your local terminal](#1-prepare-the-unix-terminal-on-your-laptopdesktop)
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
