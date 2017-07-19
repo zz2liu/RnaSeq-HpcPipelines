@@ -83,7 +83,7 @@ Tip of less: / to search; arrows to navigate; q to quit
 
 ## 2. Request and prepare your account on a yale HPC cluster
 ### Request an account 
-- Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-reque
+- Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-request)
 - check farnam, also check ruddle if you have sequenced on west campus/YCGA.
 - it might takes a few work days for your accounts to be approved.
 
@@ -297,7 +297,7 @@ localDir="<ins>~/scratch60</ins>"</pre>
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
-- Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](#request_an_account).
+- Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](#request-an-account).
 - Prepare the unix termial on your computer. See [Prepare your local terminal](#1-prepare-the-unix-terminal-on-your-laptopdesktop)
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
