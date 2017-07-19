@@ -145,13 +145,8 @@ ssh <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
     ```
     Note: We are using tmux primarily to keep your working processes running after you disconnect from the cluster. To detach from tmuxa, type ctrl-b then d. For more 'advanced' usage like tabs and panes, see my brief introduction to tmux in [FAQs](#faqs).
 - To run one of the pipelines, request an interactive computing node with 8 CPUs, each with 4Gb Memory:
-    - on farnam:
     ```sh
-    srun --pty -c8 --mem-per-cpu=4000 bash
-    ```
-    - on ruddle:
-    ```sh
-    srun --pty -p interactive -c8 --mem-per-cpu=4000 bash
+    srunI
     ```
     Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
 - Then on your computing node, prepare the dependicies of the pipelines
