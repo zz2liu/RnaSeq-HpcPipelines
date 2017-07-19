@@ -139,7 +139,7 @@ Tip for nano: ctrl-x,y to save and exit. ctrl-w,alt-w: to search,repeat.
 <pre>
 ssh <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
 </pre>
-- Run tmux: 
+- Optional: Run tmux 
     ```sh
     tmuxa
     ```
@@ -149,14 +149,14 @@ ssh <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
     srunI
     ```
     Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
-- Then on your computing node, prepare the dependicies of the pipelines
+- Then prepare the dependicies of the pipelines, on the computing node
     ```sh
     prepare_pipelines
     ```
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
 
-#### Test with the example project
+#### Optional: Test with the example project
 - Set the parameters: paste the following lines in a computing node
     ```sh
     # set up the projectDir and genome
@@ -304,19 +304,18 @@ localDir="<ins>~/scratch60</ins>"</pre>
     - An example from YSC: `http://futo.cs.yale.edu:16023/genRFLForm.rpy?fullPath=/ysm-gpfs/pi/haifan_lin/.../Project_xxx&dirName=Project_xxx`
 - set the projectLink, targetDir, and netId on your local terminal
 <pre>
-projectLink="<ins>pastehere</ins>"
-targetDir="<ins>type or drag a folder on your computer, can be an external hard drive</ins>"
 netId=<ins>type your netid</ins>
+projectLink=<ins>pastehere</ins>
+cd <ins>type or drag a folder on your computer to copy to, can be an external hard drive</ins>
 </pre>
 - Download with rsync: paste the following lines
     ```sh
     if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
-        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
-        rsync -azvuP --exclude='*.fastq' $netId@farnam.hpc.yale.edu:$projectDir $targetDir
+        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/farnam.hpc.yale.edu:\1/'
     else  #from ruddle
-        projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/; s%gpfs_illumina%/sequencers/illumina%')
-        rsync -azvuP $netId@ruddle.hpc.yale.edu:$projectDir $targetDir
+        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%'
     fi
+    rsync -azvuP --exclude='*.fastq' $netId@$_ .
     ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
