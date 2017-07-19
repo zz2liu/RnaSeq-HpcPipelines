@@ -310,12 +310,14 @@ cd <ins>type or drag a folder on your computer to copy to, can be an external ha
 </pre>
 - Download with rsync: paste the following lines
     ```sh
-    if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
-        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/farnam.hpc.yale.edu:\1/'
-    else  #from ruddle
-        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%'
-    fi
-    rsync -azvuP --exclude='*.fastq' $netId@$_ .
+    echoProjectHostDir() {
+        if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
+            echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/farnam.hpc.yale.edu:\1/'
+        else  #from ruddle
+            echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%'
+        fi
+    }
+    rsync -azvuP --exclude='*.fastq' $netId@$(echoProjectHostDir) .
     ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
