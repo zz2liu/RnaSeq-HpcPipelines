@@ -298,7 +298,7 @@ localDir="<ins>~/scratch60</ins>"</pre>
 
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
 - Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](request_an_account).
-- Prepare the unix termial on your computer. See [Prepare your local terminal](1-prepare-the-unix-terminal-on-your-laptopdesktop)
+- Prepare the unix termial on your computer. See [Prepare your local terminal](#1-prepare-the-unix-terminal-on-your-laptopdesktop)
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
     - An example from YCGA: `http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/.../Data/Intensities/BaseCalls/Unaligned/Project_xxx&dirName=...`
