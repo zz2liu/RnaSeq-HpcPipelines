@@ -250,7 +250,7 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 <pre>
     cd <ins>your/mappingdir</ins>
     contrasts=<ins>yourContrasts</ins>  #example: "A-Ctrl,B-Ctrl"
-
+</pre>
 - Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below): for example
     ```sh
     ls -d Sample* > sampleInfo.csv
