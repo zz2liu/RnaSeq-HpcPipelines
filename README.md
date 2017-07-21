@@ -256,7 +256,7 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     ls -d Sample* > sampleInfo.csv
     nano sampleInfo.csv
     ```
-    See an example file [here](sampleInfoExample.csv).
+    See an example file [here](https://raw.githubusercontent.com/zz2liu/RnaSeq-HpcPipelines/master/sampleInfoExample.csv).
 
 - Run the pipeline:
     ```bash
