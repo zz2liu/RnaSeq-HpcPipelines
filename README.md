@@ -258,7 +258,10 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     ```
     See an example file [here](sampleInfoExample.csv).
 
-- Run the pipeline the same as in example
+- Run the pipeline:
+    ```bash
+    mkdir deseq2 && cd deseq2 && deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
+    ```
 - Download the results to your computer, as demonstrated in the mapping pipeline.
 
 #### Pipeline Document
