@@ -98,8 +98,6 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     # add pipelines folder to your command searching path
     echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
     echo "alias prepare_pipelines='source /home/zl99/code/ngs/pipelines/prepare_pipelines.sh'" >> ~/.bashrc
-    # make a tmux shortcut
-    echo "alias tmuxa='tmux detach -a; tmux a || tmux new -s S0'" >> ~/.bashrc
     ```
     You can then exit by closing your terminal window or type `exit`.
 
@@ -137,8 +135,9 @@ Tip for nano: ctrl-x,y to save and exit. ctrl-w,alt-w: to search,repeat.
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto a specific head node from your local terminal, example:
 <pre>
-ssh <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
+ssh -X <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
 </pre>
+
 - Optional: Run tmux 
     ```sh
     tmuxa
@@ -236,25 +235,28 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
 #### Example/test usage
 - Set the parameters: paste the following lines to your cluster terminal on a computing node
     ```sh
-    # set up mappingDir and contrasts
-    mappingDir="~/scratch60/Project_Test1M.bowtie2" #output directory of the mapping pipeline
-    contrasts="KD-Ctrl" #example of multiple contrasts: constrasts="A-Ctrl,B-Ctrl"
+    # cd to mappingDir and set contrasts
+    cd "~/scratch60/Project_Test1M.bowtie2" #output directory of the mapping pipeline
+    contrasts="A-B" #example of multiple contrasts: constrasts="A-Ctrl,B-Ctrl"
     ```
 - Run pipeline, output to a new folder under your mappingFolder
     ```sh
     # run pipeline, output to a new folder ./deseq2
-    mkdir $mappingDir/deseq2; cd $_
+    mkdir deseq2; cd deseq2
     deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts
     ```
 #### Run your project
-- Set your mappingDir and contrasts as demonstrated in the example, replacing with your own setting after the `=`
+- Set your mappingDir and set contrasts:
+<pre>
+    cd <ins>your/mappingdir</ins>
+    contrasts=<ins>yourContrasts</ins>  #example: "A-Ctrl,B-Ctrl"
+
 - Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below): for example
     ```sh
-    cd $mappingDir
     ls -d Sample* > sampleInfo.csv
     nano sampleInfo.csv
     ```
-    Insert one line before the first; add a ,groupName to the end of each line. See an example file [here](https://github.com/zz2liu/RnaSeq-HpcPipelines/edit/master/sampleInfoExample.csv).
+    See an example file [here](sampleInfoExample.csv).
 
 - Run the pipeline the same as in example
 - Download the results to your computer, as demonstrated in the mapping pipeline.
