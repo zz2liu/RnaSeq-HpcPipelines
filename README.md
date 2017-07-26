@@ -102,9 +102,7 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
     ```sh
     cat <<< '
     # BEGIN: pipelines initiation
-    zl99="$(realpath ~/../zl99)"
-    export pipelinesDir=$zl99/code/ngs/pipelines
-    export PATH="$pipelinesDir:$PATH"
+    export PATH="/home/zl99/code/ngs/pipelines:$PATH"
     # END: pipelines initiation
     ' >> ~/.bashrc
     ```
