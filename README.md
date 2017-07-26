@@ -1,3 +1,8 @@
+<!-- 
+TODO:
+    add guide for GSEA and Fastqc
+    IGV
+-->
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC clusters. <br>
 **Note about the `code block`s in this tutorial**:
@@ -95,9 +100,13 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
 
 - After you log onto the cluster, paste the following lines:
     ```sh
-    # add pipelines folder to your command searching path
-    echo 'export PATH="/home/zl99/code/ngs/pipelines:$PATH"' >> ~/.bashrc
-    echo "alias prepare_pipelines='source /home/zl99/code/ngs/pipelines/prepare_pipelines.sh'" >> ~/.bashrc
+    cat <<< '
+    # BEGIN: pipelines initiation
+    zl99="$(realpath ~/../zl99)"
+    export pipelinesDir=$zl99/code/ngs/pipelines
+    export PATH="$pipelinesDir:$PATH"
+    # END: pipelines initiation
+    ' >> ~/.bashrc
     ```
     You can then exit by closing your terminal window or type `exit`.
 
@@ -150,7 +159,7 @@ ssh -X <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
     Note: your will be kicked out of the the computing node after the 'walltime', which default to be 24 hours. 
 - Then prepare the dependicies of the pipelines, on the computing node
     ```sh
-    prepare_pipelines
+    source load_pipelines
     ```
 ### Mapping: Bowtie2 local single-end mapping pipeline
 Generate a gene x sample read counts matrix for your project.
