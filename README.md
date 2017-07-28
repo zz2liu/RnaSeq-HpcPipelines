@@ -12,6 +12,7 @@ RNA-Seq Pipelines live on Yale HPC clusters. <br>
 - The <span><ins>underlined part in a block<ins></span> need your action instead of just copy and paste. 
 - You can type ctrl-c to cancel the execution of a command.
 
+To see a demo [during a workshop on 7/28/2017 here] (workshop20170728.log)
 ## 1. Prepare the unix terminal on your laptop/desktop
 ### For Windows users
 - download and install [babun](http://babun.github.io/), a free cygwin based linux emulator.  Extract and run the install.bat file, it will take a few minutes to finish. 
