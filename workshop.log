@@ -1,0 +1,51 @@
+# from laptop: ssh zl99@farnam2.hpc.yale.edu
+# from head node: srunI
+
+# from the compute node
+source load_pipelines
+
+# demo the Bowtie2-featureCounts pipeline
+projectDir=$pipelinesDir/Project_testSmall 
+genome=hg38
+cd scratch60/
+mkdir tmp1
+cd tmp1
+bowtie2localSeBatch $genome $projectDir 
+ls
+less geneCount.csv 
+
+# demo the DESeq2 pipeline
+cp $pipelinesDir/Project_testSmall/sampleInfo.csv . 
+less sampleInfo.csv 
+contrasts=A-B,B-A
+
+mkdir tmpdeseq
+cd tmpdeseq
+deseq2ContrastBatch ../geneCount.csv ../sampleInfo.csv $contrasts 
+less B-A.StatWithVst.csv
+less *.rnk
+
+# transfer the current folder to laptop
+cd ..
+tmp=$USER@${HOSTNAME%%[0-9].*}.hpc.yale.edu
+echo "rsync -azvuP $tmp:$PWD .
+    #from laptop: cd Downloads; __paste the rsync command__
+
+# Look at the Fastq.gz 
+cd $projectDir 
+ls
+ls *
+less Sample_10/sorted_R1_001.fastq.gz 
+
+# fastqc Note I change a little to overcome the troubles we encountered
+cd -  #cd back to the last directory, which is tmp1
+mkdir fastqc001
+cd fastqc001
+fastqc -o . $projectDir/*/*_001.fastq.gz 
+history > tmp.log
+    #from laptop: run the same rsync command again to get updated result files
+
+# editor on terminal
+ls -d Sample* > sampleInfo.csv
+nano sampleInfo.csv
+less sampleInfo.csv 
