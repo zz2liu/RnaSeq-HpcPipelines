@@ -191,7 +191,7 @@ Generate a gene x sample read counts matrix for your project.
 <pre>
 # extract the projectDir from the link address
 projectDir=$(echoProjectDir '<ins>pastehere</ins>')
-genome=<ins>type hg38 or mm10</ins>
+genome=<ins>hg38</ins> #or mm10
 </pre>
 - Then paste the following to run the pipeline. It takes much longer, your might wait overnight.
     ```sh
