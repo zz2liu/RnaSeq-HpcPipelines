@@ -2,6 +2,8 @@
 TODO:
     add guide for GSEA and Fastqc
     IGV
+TODO: bowtie2Pipeline <geneome name/dir> <project link/dir>
+    > scratch60/projectName.bowtie2Pipeline.YMD-HMS
 -->
 # RnaSeq-HpcPipelines
 RNA-Seq Pipelines live on Yale HPC clusters. <br>
