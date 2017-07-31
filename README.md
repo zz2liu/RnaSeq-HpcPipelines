@@ -189,14 +189,9 @@ Generate a gene x sample read counts matrix for your project.
 - Follow link provided by the sequencing center, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png), Then type
 <pre>
-projectLink="<ins>pastehere</ins>"
-genome="<ins>type a genome version hg38 or mm10</ins>"
 # extract the projectDir from the link address
-if [[ $HOSTNAME =~ 'ruddle' ]]; then
-    projectDir="/sequencers/illumina${projectLink##*gpfs_illumina}"
-else
-    projectDir=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/')
-fi
+projectDir=$(echoProjectDir '<ins>pastehere</ins>')
+genome=<ins>type hg38 or mm10</ins>
 </pre>
 - Then paste the following to run the pipeline. It takes much longer, your might wait overnight.
     ```sh
