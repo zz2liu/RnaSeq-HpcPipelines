@@ -105,13 +105,10 @@ ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
 
 - After you log onto the cluster, paste the following lines:
     ```sh
-    cat <<< '
-    # BEGIN: pipelines initiation
-    export PATH="/home/zl99/code/ngs/pipelines:$PATH"
-    # END: pipelines initiation
-    ' >> ~/.bashrc
+    cmdLine='PATH="/home/zl99/code/ngs/pipelines:$PATH"'
+    [[ -n $(grep '/home/zl99/code/ngs/pipelines:$PATH' ~/.bashrc) ]] || echo $cmdLine >> ~/.bashrc
     ```
-    You can then exit by closing your terminal window or type `exit`.
+    You can then exit by type `exit`.
 
 Note for the HPC folders: 
     - project: 4T for the lab
