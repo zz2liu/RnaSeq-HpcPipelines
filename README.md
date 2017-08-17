@@ -54,48 +54,11 @@ To see a demo [during a workshop on 7/28/2017 here](workshop.20170728.log)
     - Paste into the input box, then click \<Make changes\>
 Note: your need to prepare/register a key for each computer from which to logon to the cluster.
 
-### Optional: Familiarize yourself with basic linux concepts and commands
-This might looks overwhelming if your never use linux terminal, but it is rewarding. Set aside one hour to follow the tutorial to see how far you can go, you might find yourself at the end of the tutorial before the hour run off.
-- [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
-- [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
-
-Excercise with the very basic linux commands (program + options + arguments), type each command except the <span><ins>italized part</ins></span> (you should act on it) and the comment (after #), followed by an enter.
-- list the folders and files: ls
-<pre>
-ls
-ls -l #long form: filesize, last modified time
-ls -la #see the hidden: ., .., .ssh
-ls --help
-man ls
-</pre>
-Tip of man: / to search; arrows to navigate; q to quit
-
-- navigate in the tree: cd
-<pre>
-pwd  #find where you are
-cd /  #go to root
-ls -l
-cd ~  #go to home, or just type cd
-cd <ins>drag a folder from your file manager</ins> #go to a local folder
-</pre>
-
-- moving things around: mkdir, mv, cp
-<pre>
-cd
-mkdir RnaseqTutorial
-cd Rna<ins>click tab on yourkeyboard for autocompletion</ins>
-cp ~/.ssh/id_rsa.pub . #. is for current directory
-cd .. #.. is for parent directory
-mv RnaseqTutorial ~/Downloads
-ls ~/Downloads | less  # | is called pipe. less is file viewer 
-</pre>
-Tip of less: / to search; arrows to navigate; q to quit
-
 ## 2. Request and prepare your account on a yale HPC cluster
 ### Request an account 
 - Go to [account request page of yale center for research computing](http://research.computing.yale.edu/support/hpc/account-request)
     - check farnam, also check ruddle if you have sequenced on west campus/YCGA.
-- it might takes a few work days for your accounts to be approved.
+Note: it might takes a few work days for your accounts to be approved.
 
 ### First time logon and setup
 - After you got the approvement email from ITS, log into your account from your terminal, example 
@@ -115,31 +78,6 @@ Note for the HPC folders:
     - scratch60: 10T for the lab, files stored here will be automaticly deleted after 60 days
     - In the following examples, most of results are stored under your scratch60 folder. See [FAQs](#faqs) to find how to backup/synchronize to your computer using `rsync`.
     
-### Optional: Exercise with your basic linux commands
-- Transfer a bunch of files: rsync
-```sh
-cd ~/project
-rsync -azuvP /home/zl99/project/Project_Test1M .  #transfer all the Project_Test1M to current folder.
-```
-Tip for rsync: -a for all files; -z for fast transferring; -u for transferring files only if they are updated or new; -v for verbose (display more info); -P for progress (display a percentage transferred).
-
-- View text file content: less
-```sh
-# continue from last block
-cd Project_Test1M
-ls * # * is wildcard representing anything
-ls */*R1_001.fastq.gz # list only the first file from each sample
-less Sample_10/10_002_CGATGT_L002_R1_001.fastq.gz
-```
-Tip for less: q to quit; arrows to navigate; /,n to search,repeat
-
-- Edit a text file: nano
-```sh
-# continue from last block
-echo Sample* > exNano.csv  #echo just print strings to the screen
-nano exNano.csv #try to add a comma and a group name (such as A,B) to each line
-```
-Tip for nano: ctrl-x,y to save and exit. ctrl-w,alt-w: to search,repeat.
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto a specific head node from your local terminal, example:
@@ -286,6 +224,7 @@ Reference: [DESeq2 package](http://bioconductor.org/packages/release/bioc/html/D
 ### Diferential Expression: VoomLimma diferential gene expression pipeline
 TBD. Low priority <br>
 Reference: [Limma package](https://bioconductor.org/packages/release/bioc/html/limma.html).
+Reference: http://bioinf.wehi.edu.au/RNAseqCaseStudy/
 
 ## FAQs
 ### How to synchronize files with the cluster?
@@ -374,6 +313,43 @@ Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
   - wildcards: \*, ?
   - variable: ${}
   - redirect: |, >, >>
+
+### Familiarize yourself with basic linux concepts and commands
+This might looks overwhelming if your never use linux terminal, but it is rewarding. Set aside one hour to follow the tutorial to see how far you can go, you might find yourself at the end of the tutorial before the hour run off.
+- [Command-line Bootcamp](http://rik.smith-unna.com/command_line_bootcamp) might be a good start.
+- [See another tutorial here](http://www.ee.surrey.ac.uk/Teaching/Unix/index.html).
+
+Excercise with the very basic linux commands (program + options + arguments), type each command except the <span><ins>italized part</ins></span> (you should act on it) and the comment (after #), followed by an enter.
+- list the folders and files: ls
+<pre>
+ls
+ls -l #long form: filesize, last modified time
+ls -la #see the hidden: ., .., .ssh
+ls --help
+man ls
+</pre>
+Tip of man: / to search; arrows to navigate; q to quit
+
+- navigate in the tree: cd
+<pre>
+pwd  #find where you are
+cd /  #go to root
+ls -l
+cd ~  #go to home, or just type cd
+cd <ins>drag a folder from your file manager</ins> #go to a local folder
+</pre>
+
+- moving things around: mkdir, mv, cp
+<pre>
+cd
+mkdir RnaseqTutorial
+cd Rna<ins>click tab on yourkeyboard for autocompletion</ins>
+cp ~/.ssh/id_rsa.pub . #. is for current directory
+cd .. #.. is for parent directory
+mv RnaseqTutorial ~/Downloads
+ls ~/Downloads | less  # | is called pipe. less is file viewer 
+</pre>
+Tip of less: / to search; arrows to navigate; q to quit
 
 ### How to move and rename nested files to one folder?
 - You can use a for loop, for example
