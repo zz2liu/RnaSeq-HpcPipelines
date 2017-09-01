@@ -13,7 +13,7 @@ RNA-Seq Pipelines live on Yale HPC clusters. <br>
 - Each line is a bash command: program + options + arguments
 - Anything after a `#` is a comment
 - For most of the blocks, you can just copy and paste everything to your terminal, then type enter.
-- The <span><ins>underlined part<ins></span> or \_partBetweenUnderline\_ need your action instead of just copy and paste. 
+- The <pre><ins>underlined part<ins></pre> or `_partBetweenUnderline_` need your action instead of just copy and paste. 
 - You can type ctrl-c to cancel the execution of a command.
 
 To see a demo [during a workshop on 7/28/2017 here](workshop.20170728.log)
