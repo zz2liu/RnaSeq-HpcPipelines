@@ -62,9 +62,9 @@ Note: it might takes a few work days for your accounts to be approved.
 
 ### First time logon and setup
 - After you got the approvement email from ITS, log into your account from your terminal, example 
-<pre>
-ssh <ins>typeYourNetid</ins>@farnam.hpc.yale.edu
-</pre>
+``` sh
+ssh _yourNetid_@farnam.hpc.yale.edu
+```
 
 - After you log onto the cluster, paste the following lines:
     ```sh
@@ -81,9 +81,9 @@ Note for the HPC folders:
 
 ## 3. Run RNA-Seq pipelines on a yale HPC cluster
 - Log onto a specific head node from your local terminal, example:
-<pre>
-ssh -X <ins>typeYourNetid</ins>@<ins>farnam2</ins>.hpc.yale.edu
-</pre>
+```
+ssh -X _yourNetid_@farnam2.hpc.yale.edu
+```
 
 - Optional: Run tmux 
     ```sh
@@ -127,11 +127,11 @@ Generate a gene x sample read counts matrix for your project.
 #### Run your own project
 - Follow link provided by the sequencing center, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png), Then type
-<pre>
+```sh
 # extract the projectDir from the link address
-projectDir=$(echoProjectDir '<ins>pastehere</ins>')
-genome=<ins>hg38</ins> #or mm10
-</pre>
+projectDir=$(echoProjectDir '_pastehere_')
+genome=_genome_ # hg38 or mm10
+```
 - Then paste the following to run the pipeline. It takes much longer, your might wait overnight.
     ```sh
     # make a new folder in scratch60, cd there and do the mapping
@@ -140,16 +140,17 @@ genome=<ins>hg38</ins> #or mm10
     ```
 - Tranfer the results to your computer: 
     - construct the rsync command on the cluster terminal: paster the following lines and copy the output:
-   ```sh
-   tmp=$USER@${HOSTNAME%%[0-9].*}.hpc.yale.edu
-   echo "rsync -azvuP $tmp:$outDir ."
-   ```
-   Tip: to figure out the size of the outDir, type `cd $outDir; du -hs`.
+       ```sh
+       tmp=$USER@${HOSTNAME%%[0-9].*}.hpc.yale.edu
+       echo "rsync -azvuP $tmp:$outDir ."
+       ```
+       .. Tip: to figure out the size of the outDir, type `cd $outDir; du -hs`.
     - open **your local terminal on your laptop** (Babun for windows, terminal for OSX), then type the following
-<pre>
-cd "<ins>drag to here a folder from your file manager, you might want to use one from an external drive</ins>"
-<ins>paste your rsync command</ins>
-</pre>
+        ```sh
+        cd "_targetDir_"
+        _pasteHere_
+         ```
+       .. Tip: instead of typing, you can drag a folder to your terminal window. 
 
 #### Pipeline Document:
 - Usage: 
@@ -189,10 +190,10 @@ Reference: [TopHat](https://ccb.jhu.edu/software/tophat/index.shtml).
     ```
 #### Run your project
 - Set your mappingDir and set contrasts:
-<pre>
-    cd <ins>your/mappingdir</ins>
-    contrasts=<ins>yourContrasts</ins>  #example: "A-Ctrl,B-Ctrl"
-</pre>
+    ```sh
+    cd _your/mappingdir_
+    contrasts="_yourContrasts_"  #example: "A-Ctrl,B-Ctrl"
+    ```
 - Create/upload your own sampleInfo.csv file to your mappingDir (check the format in the pipeline document below): for example
     ```sh
     ls -d Sample* > sampleInfo.csv
