@@ -251,14 +251,24 @@ localDir="<ins>~/scratch60</ins>"</pre>
 ![copy the link to your sequence project](copy-seq-project-link.png)
     - An example from YCGA: `http://sysg1.cs.yale.edu:2011/gen?fullPath=gpfs_illumina/sequencerS/runs/.../Data/Intensities/BaseCalls/Unaligned/Project_xxx&dirName=...`
     - An example from YSC: `http://futo.cs.yale.edu:16023/genRFLForm.rpy?fullPath=/ysm-gpfs/pi/haifan_lin/.../Project_xxx&dirName=Project_xxx`
-- set the projectLink, targetDir, and netId on your local terminal
-<pre>
-netId=<ins>type your netid</ins>
-projectLink=<ins>pastehere</ins>
-cd <ins>type or drag a folder on your computer to copy to, can be an external hard drive</ins>
-</pre>
-- Download with rsync: paste the following lines
+- set a target folder with enough disk space
+```sh
+    cd _yourTargetFolder_ 
+```
+Tip: you can drag a folder on your computer (including external drive) to the terminal window after typing `cd `
+
+- set the netid and projectLink 
+```sh
+    projectLink="_pastehere_"
+    netId=_yourNetId_
+```
+- Download with rsync: just paste the following lines
     ```sh
+    usage() {
+        echo 'Usage: PROG <netid> <projectDir>'
+        exit 0
+    }
+
     echoProjectHostDir() {
         if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
             echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/farnam.hpc.yale.edu:\1/'
@@ -266,7 +276,22 @@ cd <ins>type or drag a folder on your computer to copy to, can be an external ha
             echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%'
         fi
     }
-    rsync -azvuP --exclude='*.fastq' $netId@$(echoProjectHostDir) .
+
+    downloadYaleSeqHere() { #globals: netid, projectLink
+        #echo $# $@
+        [[ $# == 2 ]] || usage
+        netid=$1
+        projectLink=$2
+        HostDir=$(echoProjectHostDir)
+        if [[ $HOSTNAME == *"${HostDir%%.edu*}" ]]; then
+            rsync -azvP --exclude='*.fastq' "${HostDir#*.edu:}" .
+        else
+            rsync -azvP --exclude='*.fastq' "$netid@$HostDir" .
+        fi
+    }
+
+    downloadYaleSeqHere $netid "$projectLink"
+
     ```
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)

@@ -1,0 +1,28 @@
+#! /usr/bin/bash
+usage() {
+    echo 'Usage: PROG <netid> <projectDir>'
+    exit 0
+}
+
+echoProjectHostDir() {
+    if [[ $projectLink =~ 'haifan_lin' ]]; then   #from farnam
+        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/farnam.hpc.yale.edu:\1/'
+    else  #from ruddle
+        echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%'
+    fi
+}
+
+downloadYaleSeqHere() { #globals: netid, projectLink
+    #echo $# $@
+    [[ $# == 2 ]] || usage
+    netid=$1
+    projectLink=$2
+    HostDir=$(echoProjectHostDir)
+    if [[ $HOSTNAME == *"${HostDir%%.edu*}" ]]; then
+        rsync -azvP --exclude='*.fastq' "${HostDir#*.edu:}" .
+    else
+        rsync -azvP --exclude='*.fastq' "$netid@$HostDir" .
+    fi
+}
+
+downloadYaleSeqHere $@
