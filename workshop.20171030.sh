@@ -24,6 +24,7 @@ genome=hg38  #mm10 also available
 bowtie2localSeBatch $genome $projectDir
 # Note for your own project, find you own projectDir here:
 # YCGA: http://research.computing.yale.edu/support/hpc/clusters/ruddle
+# it may take overnight with the current pipeline, so keep connected.
 
 ## differential expression
 cp $pipelinesDir/Project_testSmall/sampleInfo.csv .
