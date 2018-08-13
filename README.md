@@ -258,11 +258,6 @@ localDir="<ins>~/scratch60</ins>"</pre>
 ```
 Tip: you can drag a folder on your computer (including external drive) to the terminal window after typing `cd `
 
-- set the netid and projectLink 
-```sh
-    projectLink="_pastehere_"
-    netId=_yourNetId_
-```
 - Download with rsync: just paste the following lines
     ```sh
     usage() {
@@ -291,7 +286,7 @@ Tip: you can drag a folder on your computer (including external drive) to the te
         fi
     }
 
-    downloadYaleSeqHere $netid "$projectLink"
+    downloadYaleSeqHere $USER "_paste_your_projectLink_"
 
     ```
 ### How to perform basic Quality analyses to the raw data?
