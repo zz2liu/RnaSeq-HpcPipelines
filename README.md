@@ -258,6 +258,9 @@ projectUrl=$(echo "$projectLink" | sed 's%/genRFLForm.*fullPath=%%;s%&dirName=.*
 wget -e robots=off -r -nH -np --cut-dirs=10 "$projectUrl"
 find -name *.md5sum | xargs md5sum -c
 ```
+
+Note:: You might need VPN on your laptop.  You might need a computing node by `srun --pty -p interactive bash`  on a cluster. 
+
 <!--
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
 - Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](#request-an-account).
