@@ -37,7 +37,7 @@ To see a demo [during a workshop on 10/30/2017 here](workshop.20171030.sh)
     ```sh
     # install Homebrew, the popular free package manager for OSX. It will take a few minutes.
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    brew install wget    #wget will be used later for downloading your RnaSeq data.
+    brew install #wget will be used later for downloading your RnaSeq data.
     ```
 ### Prepare your key files to yale clusters
 - generate the key pair for your terminal:
@@ -245,6 +245,20 @@ localDir="<ins>~/scratch60</ins>"</pre>
     ```
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
+### How to bulk download raw sequencing data from Yale Stem Cell Center?
+- Follow the download link provided in their email, copy the link address of your project. Example:
+![copy the link to your sequence project](copy-seq-project-link.png)
+- set the projectLink variable
+```sh
+projectLink='_pasteHere_'
+```
+- download using wget and verifing what you retrieved by copy&paste the following lines
+```sh
+projectUrl=$(echo "$projectLink" | sed 's%/genRFLForm.*fullPath=%%;s%&dirName=.*%/%')
+wget -e robots=off -r -nH -np --cut-dirs=10 "$projectUrl"
+find -name *.md5sum | xargs md5sum -c
+```
+<!--
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
 - Get an account on farnam (for YSCC) and/or ruddle (for YCGA). See [Request an account](#request-an-account).
 - Prepare the unix termial on your computer. See [Prepare your local terminal](#1-prepare-the-unix-terminal-on-your-laptopdesktop)
@@ -289,6 +303,7 @@ Tip: you can drag a folder on your computer (including external drive) to the te
     downloadYaleSeqHere $USER "_paste_your_projectLink_"
 
     ```
+-->
 ### How to perform basic Quality analyses to the raw data?
 Use [fastqc](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
 - run the run_fastqc.bat after downloaded and extracted. You might want to add a shortcut to your Desktop.
