@@ -245,21 +245,29 @@ localDir="<ins>~/scratch60</ins>"</pre>
     ```
 - For more usage examples of rsync, [see a tutorial](https://www.tecmint.com/rsync-local-remote-file-synchronization-commands/)
 
-### How to bulk download raw sequencing data from Yale Stem Cell Center?
+### How to bulk download raw sequencing data from Yale Sequencing Centers?
+- cd to a folder with enough disk space
 - Follow the download link provided in their email, copy the link address of your project. Example:
 ![copy the link to your sequence project](copy-seq-project-link.png)
 - set the projectLink variable
 ```sh
 projectLink='_pasteHere_'
 ```
-- download using wget and verifing what you retrieved by copy&paste the following lines
+- download from Yale Stem Cell Center using wget and verifing what you retrieved by copy&paste the following lines
 ```sh
-projectUrl=$(echo "$projectLink" | sed 's%/genRFLForm.*fullPath=%%;s%&dirName=.*%/%')
-wget -e robots=off -r -nH -np --cut-dirs=10 "$projectUrl"
+projectUrl=$(echo "$projectLink" | sed 's%/gen.*fullPath=%%;s%&dirName=.*%%')
+wget -e robots=off -r -nH -np --cut-dirs=10 "${projectUrl}/"
 find -name *.md5sum | xargs md5sum -c
 ```
 
-Note:: You might need VPN on your laptop.  You might need a computing node by `srun --pty -p interactive bash`  on a cluster. 
+  Note:: You might need VPN on your laptop.  You might need a computing node by `srun --pty -p interactive bash`  on a cluster. 
+
+- download from YCGA using rsync
+```sh
+projectUrl=$(echo $projectLink | sed -E 's/.*fullPath=(.*)&.*/\1/;s%gpfs_illumina%ruddle.hpc.yale.edu:/sequencers/illumina%')
+rsync -azvu $projectUrl .
+```
+  Note:: if you might need to put your_netid@ before $projectUrl on your personal laptop. Alternatively, ask YCGA for an external link, and use wget to download.
 
 <!--
 ### How to bulk download raw sequencing data from Yale Center for Genome Analysis (YCGA) on West campus or Yale Stem Cell Center?
