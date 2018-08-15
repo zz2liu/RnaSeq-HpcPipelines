@@ -256,7 +256,8 @@ projectLink='_pasteHere_'
 - download from Yale Stem Cell Center using wget and verifing what you retrieved by copy&paste the following lines
 ```sh
 projectUrl=$(echo "$projectLink" | sed 's%/gen.*fullPath=%%;s%&dirName=.*%%')
-wget -e robots=off -r -nH -np --cut-dirs=10 "${projectUrl}/"
+tmp=$(echo $projectUrl | tr / \  | wc -w) #count parts by slashes
+wget -e robots=off -r -nH -np --cut-dirs=$(bc <<< $tmp-3) "${projectUrl}/"
 find -name *.md5sum | xargs md5sum -c
 ```
 
